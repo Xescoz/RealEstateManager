@@ -6,14 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/item_list"
         android:name="com.openclassrooms.realestatemanager.ui.ItemListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.openclassrooms.realestatemanager.ui.ItemDetailHostActivity"
-        tools:listitem="@layout/item_list_content" />
+        tools:listitem="@layout/item_house"
+        app:layout_constraintTop_toBottomOf="@id/app_bar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

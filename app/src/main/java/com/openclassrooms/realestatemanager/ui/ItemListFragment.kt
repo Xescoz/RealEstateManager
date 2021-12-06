@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemListBinding
-import com.openclassrooms.realestatemanager.databinding.ItemListContentBinding
+import com.openclassrooms.realestatemanager.databinding.ItemHouseBinding
 import com.openclassrooms.realestatemanager.ui.placeholder.PlaceholderContent;
 
 /**
@@ -137,15 +136,16 @@ class ItemListFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-            val binding = ItemListContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val binding = ItemHouseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return ViewHolder(binding)
 
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
+            //holder.binding.
+            //holder.idView.text = item.id
+            //holder.contentView.text = item.content
 
             with(holder.itemView) {
                 tag = item
@@ -158,9 +158,8 @@ class ItemListFragment : Fragment() {
 
         override fun getItemCount() = values.size
 
-        inner class ViewHolder(binding: ItemListContentBinding) : RecyclerView.ViewHolder(binding.root) {
-            val idView: TextView = binding.idText
-            val contentView: TextView = binding.content
+        inner class ViewHolder(binding: ItemHouseBinding) : RecyclerView.ViewHolder(binding.root) {
+            val binding = binding;
         }
 
     }
