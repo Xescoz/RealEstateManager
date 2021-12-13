@@ -53,8 +53,6 @@ class ItemDetailFragment : Fragment() {
         _binding = FragmentItemDetailBinding.inflate(inflater, container, false)
         val rootView = binding.root
 
-        binding.toolbarLayout?.title = item?.content
-
         /*itemDetailTextView = binding.itemDetail
         // Show the placeholder content as text in a TextView.
         item?.let {
