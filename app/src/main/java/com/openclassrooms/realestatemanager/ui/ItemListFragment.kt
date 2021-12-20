@@ -1,20 +1,20 @@
 package com.openclassrooms.realestatemanager.ui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemListBinding
-import com.openclassrooms.realestatemanager.databinding.ItemHouseBinding
-import com.openclassrooms.realestatemanager.ui.placeholder.PlaceholderContent;
+import com.openclassrooms.realestatemanager.init.ContentGenerator
+import com.openclassrooms.realestatemanager.models.Property
 
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -82,18 +82,21 @@ class ItemListFragment : Fragment() {
         /** Click Listener to trigger navigation based on if you have
          * a single pane layout or two pane layout
          */
+        val bundle = bundleOf("item" to ContentGenerator.generatePropertyContent()[0])
+        itemDetailFragmentContainer?.findNavController()?.navigate(R.id.fragment_item_detail, bundle)
+
         val onClickListener = View.OnClickListener { itemView ->
-            val item = itemView.tag as PlaceholderContent.PlaceholderItem
-            val bundle = Bundle()
-            bundle.putString(
-                    ItemDetailFragment.ARG_ITEM_ID,
-                    item.id
-            )
+            val item = itemView.tag as Property
+
+            val bundle = bundleOf("item" to item)
+
+            val action = ItemListFragmentDirections.showItemDetail().setProperty(item)
+
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
                         .navigate(R.id.fragment_item_detail, bundle)
             } else {
-                itemView.findNavController().navigate(R.id.show_item_detail, bundle)
+                itemView.findNavController().navigate(action)
             }
         }
 
@@ -103,7 +106,7 @@ class ItemListFragment : Fragment() {
          * experience on larger screen devices
          */
         val onContextClickListener = View.OnContextClickListener { v ->
-            val item = v.tag as PlaceholderContent.PlaceholderItem
+            val item = v.tag as Property
             Toast.makeText(
                     v.context,
                     "Context click of item " + item.id,
@@ -120,48 +123,14 @@ class ItemListFragment : Fragment() {
             onContextClickListener: View.OnContextClickListener
     ) {
 
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(
-                PlaceholderContent.ITEMS,
+        recyclerView.adapter = context?.let {
+            ItemListRecyclerViewAdapter(
+                ContentGenerator.generatePropertyContent(),
                 onClickListener,
-                onContextClickListener
+                onContextClickListener,
+                it.applicationContext
         )
-    }
-
-    class SimpleItemRecyclerViewAdapter(
-            private val values: List<PlaceholderContent.PlaceholderItem>,
-            private val onClickListener: View.OnClickListener,
-            private val onContextClickListener: View.OnContextClickListener
-    ) :
-            RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-            val binding = ItemHouseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return ViewHolder(binding)
-
         }
-
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = values[position]
-            //holder.binding.
-            //holder.idView.text = item.id
-            //holder.contentView.text = item.content
-
-            with(holder.itemView) {
-                tag = item
-                setOnClickListener(onClickListener)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    setOnContextClickListener(onContextClickListener)
-                }
-            }
-        }
-
-        override fun getItemCount() = values.size
-
-        inner class ViewHolder(binding: ItemHouseBinding) : RecyclerView.ViewHolder(binding.root) {
-            val binding = binding;
-        }
-
     }
 
     override fun onDestroyView() {

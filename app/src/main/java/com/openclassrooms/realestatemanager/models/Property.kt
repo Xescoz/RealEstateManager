@@ -1,6 +1,10 @@
 package com.openclassrooms.realestatemanager.models
 
-class Property(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Property(
         var id : Int,
         var date : String,
         var propertyType : String,
@@ -20,5 +24,4 @@ class Property(
         var apartment : String,
         var postcode : String,
         var locationPicture : String,
-        var agent: Agent) {
-}
+        var agent: String): Parcelable

@@ -2,14 +2,12 @@ package com.openclassrooms.realestatemanager.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.openclassrooms.realestatemanager.R
+import androidx.navigation.fragment.navArgs
 import com.openclassrooms.realestatemanager.databinding.FragmentItemDetailBinding
-import com.openclassrooms.realestatemanager.ui.placeholder.PlaceholderContent
+import com.openclassrooms.realestatemanager.models.Property
 
 /**
  * A fragment representing a single Item detail screen.
@@ -19,59 +17,55 @@ import com.openclassrooms.realestatemanager.ui.placeholder.PlaceholderContent
  */
 class ItemDetailFragment : Fragment() {
 
-    /**
-     * The placeholder content this fragment is presenting.
-     */
-    private var item: PlaceholderContent.PlaceholderItem? = null
+    private val args: ItemDetailFragmentArgs by navArgs()
 
-    //lateinit var itemDetailTextView: TextView
+    private var propertyParcel: Property? = null
 
     private var _binding: FragmentItemDetailBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
-                // Load the placeholder content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-                item = PlaceholderContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-            }
-        }
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentItemDetailBinding.inflate(inflater, container, false)
-        val rootView = binding.root
 
-        /*itemDetailTextView = binding.itemDetail
-        // Show the placeholder content as text in a TextView.
-        item?.let {
-            itemDetailTextView.text = it.details
-        }*/
-
-        return rootView
+        return binding.root
     }
 
-    companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        const val ARG_ITEM_ID = "item_id"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        propertyParcel = if(args.property!=null){
+            args.property!!
+        }
+        else{
+            arguments?.getParcelable("item")
+
+        }
+        initView()
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initView(){
+        binding.descriptionContent.text = propertyParcel?.description
+
+        binding.surfaceContent.text = propertyParcel?.surface
+        binding.numberRoomsContent.text = propertyParcel?.nbOfRooms.toString()
+        binding.numberBedroomContent.text = propertyParcel?.nbOfBedrooms.toString()
+        binding.numberBathroomContent.text = propertyParcel?.nbOfBathrooms.toString()
+
+        binding.locationRoad.text = propertyParcel?.address
+        binding.locationCity.text = propertyParcel?.city
+        binding.locationApartment.text = propertyParcel?.apartment
+        binding.locationCountryCode.text = propertyParcel?.postcode
+        binding.locationCountry.text = propertyParcel?.country
     }
 }

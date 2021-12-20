@@ -14,6 +14,29 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/on_sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="On Sale"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/on_sale_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Since"
+        android:layout_marginEnd="@dimen/activity_margin"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/on_sale"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
         android:id="@+id/item_house_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
