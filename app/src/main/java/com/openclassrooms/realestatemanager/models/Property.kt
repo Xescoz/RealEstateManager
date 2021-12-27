@@ -1,10 +1,14 @@
 package com.openclassrooms.realestatemanager.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "property_table")
 data class Property(
+        @PrimaryKey
         var id : Int,
         var date : String,
         var propertyType : String,

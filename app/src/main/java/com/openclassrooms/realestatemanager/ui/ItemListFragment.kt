@@ -9,12 +9,15 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemListBinding
-import com.openclassrooms.realestatemanager.init.ContentGenerator
 import com.openclassrooms.realestatemanager.models.Property
+import com.openclassrooms.realestatemanager.room.PropertyApplication
+import com.openclassrooms.realestatemanager.room.PropertyViewModel
+import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
 
 /**
  * A Fragment representing a list of Pings. This fragment
@@ -40,16 +43,18 @@ class ItemListFragment : Fragment() {
                     "Undo (Ctrl + Z) shortcut triggered",
                     Toast.LENGTH_LONG
             ).show()
-            true
         } else if (event.keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed) {
             Toast.makeText(
                     v.context,
                     "Find (Ctrl + F) shortcut triggered",
                     Toast.LENGTH_LONG
             ).show()
-            true
         }
         false
+    }
+
+    private val propertyViewModel: PropertyViewModel by viewModels {
+        PropertyViewModelFactory((activity?.application as PropertyApplication).repository)
     }
 
     private var _binding: FragmentItemListBinding? = null
@@ -61,7 +66,7 @@ class ItemListFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentItemListBinding.inflate(inflater, container, false)
         return binding.root
@@ -79,12 +84,12 @@ class ItemListFragment : Fragment() {
         // layout configuration (layout, layout-sw600dp)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
 
+        //val bundle = bundleOf("item" to ContentGenerator.generatePropertyContent()[0])
+        //itemDetailFragmentContainer?.findNavController()?.navigate(R.id.fragment_item_detail, bundle)
+
         /** Click Listener to trigger navigation based on if you have
          * a single pane layout or two pane layout
          */
-        val bundle = bundleOf("item" to ContentGenerator.generatePropertyContent()[0])
-        itemDetailFragmentContainer?.findNavController()?.navigate(R.id.fragment_item_detail, bundle)
-
         val onClickListener = View.OnClickListener { itemView ->
             val item = itemView.tag as Property
 
@@ -122,15 +127,16 @@ class ItemListFragment : Fragment() {
             onClickListener: View.OnClickListener,
             onContextClickListener: View.OnContextClickListener
     ) {
-
-        recyclerView.adapter = context?.let {
-            ItemListRecyclerViewAdapter(
-                ContentGenerator.generatePropertyContent(),
-                onClickListener,
-                onContextClickListener,
-                it.applicationContext
-        )
-        }
+        propertyViewModel.allProperty.observe(viewLifecycleOwner, { propertyList ->
+            recyclerView.adapter = context?.let {
+                ItemListRecyclerViewAdapter(
+                        propertyList,
+                        onClickListener,
+                        onContextClickListener,
+                        it.applicationContext
+                )
+            }
+        })
     }
 
     override fun onDestroyView() {
