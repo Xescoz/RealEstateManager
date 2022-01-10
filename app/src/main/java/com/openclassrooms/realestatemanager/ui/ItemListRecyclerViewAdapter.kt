@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.openclassrooms.realestatemanager.R
@@ -36,12 +37,12 @@ class ItemListRecyclerViewAdapter(
 
         if(item.sold){
             holder.binding.onSale.text = "Sold"
-            holder.binding.onSale.setTextColor(context.resources.getColor(R.color.red))
+            holder.binding.onSale.setTextColor(ContextCompat.getColor(context,R.color.red))
             holder.binding.onSaleDate.text = "Since " + item.dateOfSale
         }
         else {
             holder.binding.onSale.text = "On Sale"
-            holder.binding.onSale.setTextColor(context.resources.getColor(R.color.green))
+            holder.binding.onSale.setTextColor(ContextCompat.getColor(context,R.color.green))
             holder.binding.onSaleDate.text = "Since " + item.date
         }
 
@@ -62,9 +63,7 @@ class ItemListRecyclerViewAdapter(
 
     override fun getItemCount() = values.size
 
-    inner class ViewHolder(binding: ItemHouseBinding) : RecyclerView.ViewHolder(binding.root) {
-        val binding = binding;
-    }
+    inner class ViewHolder(val binding: ItemHouseBinding) : RecyclerView.ViewHolder(binding.root)
 
 }
 

@@ -5,10 +5,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ItemPhotosBinding
+import com.openclassrooms.realestatemanager.models.Photo
 
 class ItemDetailRecyclerViewAdapter(
-        private val values: List<String>,
+        private val photos: List<Photo>,
         private val context : Context
 ) :
         RecyclerView.Adapter<ItemDetailRecyclerViewAdapter.ViewHolder>() {
@@ -22,18 +25,18 @@ class ItemDetailRecyclerViewAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        /*
+        val photo = photos[position]
+
+        holder.binding.photoDescription.text = photo.description
+
         Glide.with(context)
-                .load(item.picture)
-                .into(holder.binding.itemHouseImage)
-                .onLoadFailed(context.getDrawable(R.drawable.house))*/
+                .load(photo.path)
+                .into(holder.binding.photoImage)
+                .onLoadFailed(context.getDrawable(R.drawable.house))
     }
 
-    override fun getItemCount() = values.size
+    override fun getItemCount() = photos.size
 
-    inner class ViewHolder(binding: ItemPhotosBinding) : RecyclerView.ViewHolder(binding.root) {
-        val binding = binding;
-    }
+    inner class ViewHolder(val binding: ItemPhotosBinding) : RecyclerView.ViewHolder(binding.root)
 
 }

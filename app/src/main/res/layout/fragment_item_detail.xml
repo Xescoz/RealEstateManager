@@ -10,6 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/button_add_photos"
+            android:background="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_add_to_photos_24"
+            android:layout_marginStart="@dimen/text_margin"
+            app:layout_constraintTop_toTopOf="@id/media_text"
+            app:layout_constraintBottom_toBottomOf="@id/media_text"
+            app:layout_constraintStart_toEndOf="@id/media_text"/>
+
         <TextView
             android:id="@+id/media_text"
             style="?android:attr/textAppearanceLarge"

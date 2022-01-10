@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.room
 
 import androidx.lifecycle.*
+import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PropertyViewModel(private val repository: PropertyRepository): ViewModel() {
@@ -10,6 +12,10 @@ class PropertyViewModel(private val repository: PropertyRepository): ViewModel()
 
     fun insert(property: Property) = viewModelScope.launch {
         repository.insert(property)
+    }
+
+    fun updatePhotos(photos: List<Photo>, id: Int){
+        repository.updatePhotos(photos,id)
     }
 
 }

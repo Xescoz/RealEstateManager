@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 @Entity(tableName = "property_table")
@@ -27,5 +28,6 @@ data class Property(
         var country : String,
         var apartment : String,
         var postcode : String,
+        var photos: @RawValue List<Photo>,
         var locationPicture : String,
         var agent: String): Parcelable

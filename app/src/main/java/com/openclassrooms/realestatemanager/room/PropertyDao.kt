@@ -1,9 +1,7 @@
 package com.openclassrooms.realestatemanager.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
 import kotlinx.coroutines.flow.Flow
 
@@ -19,5 +17,7 @@ interface PropertyDao {
     @Query("DELETE FROM property_table")
     suspend fun deleteAll()
 
+    @Query("UPDATE property_table SET photos = :photos WHERE id = :id")
+    fun updatePhotos(photos: List<Photo>, id: Int)
 
 }

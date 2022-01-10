@@ -10,4 +10,7 @@
     <string name="number_of_bathrooms">Number of bathrooms</string>
     <string name="number_of_bedrooms">Number of bedrooms</string>
     <string name="location">Location</string>
+    <string name="camera_gallery_dialog">Do you want to add picture with the gallery or camera ?</string>
+    <string name="gallery_confirmation">Continue with gallery</string>
+    <string name="camera_confirmation">Continue with camera</string>
 </resources>
