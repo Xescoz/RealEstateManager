@@ -13,13 +13,13 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ItemHouseBinding
 import com.openclassrooms.realestatemanager.models.Property
 
-class ItemListRecyclerViewAdapter(
+class PropertyListRecyclerViewAdapter(
         private val values: List<Property>,
         private val onClickListener: View.OnClickListener,
         private val onContextClickListener: View.OnContextClickListener,
         private val context : Context
 ) :
-        RecyclerView.Adapter<ItemListRecyclerViewAdapter.ViewHolder>() {
+        RecyclerView.Adapter<PropertyListRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

@@ -28,7 +28,7 @@ import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
  * item details side-by-side using two vertical panes.
  */
 
-class ItemListFragment : Fragment() {
+class PropertyListFragment : Fragment() {
 
     /**
      * Method to intercept global key events in the
@@ -95,7 +95,7 @@ class ItemListFragment : Fragment() {
 
             val bundle = bundleOf("item" to item)
 
-            val action = ItemListFragmentDirections.showItemDetail().setProperty(item)
+            val action = PropertyListFragmentDirections.showItemDetail().setProperty(item)
 
             if (itemDetailFragmentContainer != null) {
                 itemDetailFragmentContainer.findNavController()
@@ -129,7 +129,7 @@ class ItemListFragment : Fragment() {
     ) {
         propertyViewModel.allProperty.observe(viewLifecycleOwner, { propertyList ->
             recyclerView.adapter = context?.let {
-                ItemListRecyclerViewAdapter(
+                PropertyListRecyclerViewAdapter(
                         propertyList,
                         onClickListener,
                         onContextClickListener,

@@ -13,4 +13,10 @@
     <string name="camera_gallery_dialog">Do you want to add picture with the gallery or camera ?</string>
     <string name="gallery_confirmation">Continue with gallery</string>
     <string name="camera_confirmation">Continue with camera</string>
+    <string name="road">Road</string>
+    <string name="apartment">Apartment</string>
+    <string name="city">City</string>
+    <string name="country_code">Country code</string>
+    <string name="country">Country</string>
+    <string name="confirm">Confirm</string>
 </resources>

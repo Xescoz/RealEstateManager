@@ -10,11 +10,11 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ItemPhotosBinding
 import com.openclassrooms.realestatemanager.models.Photo
 
-class ItemDetailRecyclerViewAdapter(
+class PropertyDetailRecyclerViewAdapter(
         private val photos: List<Photo>,
         private val context : Context
 ) :
-        RecyclerView.Adapter<ItemDetailRecyclerViewAdapter.ViewHolder>() {
+        RecyclerView.Adapter<PropertyDetailRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

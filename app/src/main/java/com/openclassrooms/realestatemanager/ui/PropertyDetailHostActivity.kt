@@ -9,7 +9,7 @@ import androidx.navigation.ui.navigateUp
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityItemDetailBinding
 
-class ItemDetailHostActivity : AppCompatActivity() {
+class PropertyDetailHostActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 

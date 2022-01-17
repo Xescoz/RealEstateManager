@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/photos_recyclerview" />
 
         <TextView
-            android:id="@+id/description_content"
+            android:id="@+id/description_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
@@ -81,10 +81,10 @@
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/surface"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description_content" />
+            app:layout_constraintTop_toBottomOf="@id/description_input" />
 
         <TextView
-            android:id="@+id/surface_content"
+            android:id="@+id/surface_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin"
@@ -105,10 +105,10 @@
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/number_of_rooms"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/surface_content" />
+            app:layout_constraintTop_toBottomOf="@id/surface_input" />
 
         <TextView
-            android:id="@+id/number_rooms_content"
+            android:id="@+id/number_rooms_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin"
@@ -129,10 +129,10 @@
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/number_of_bathrooms"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/number_rooms_content" />
+            app:layout_constraintTop_toBottomOf="@id/number_rooms_input" />
 
         <TextView
-            android:id="@+id/number_bathroom_content"
+            android:id="@+id/number_bathroom_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin"
@@ -153,7 +153,7 @@
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/number_of_bedrooms"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/number_bathroom_content" />
+            app:layout_constraintTop_toBottomOf="@id/number_bathroom_input" />
 
         <TextView
             android:id="@+id/number_bedroom_content"
@@ -179,7 +179,7 @@
             app:layout_constraintTop_toTopOf="@id/surface_title" />
 
         <TextView
-            android:id="@+id/location_road"
+            android:id="@+id/location_road_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin"
@@ -190,40 +190,40 @@
             app:layout_constraintTop_toBottomOf="@id/location_title" />
 
         <TextView
-            android:id="@+id/location_apartment"
+            android:id="@+id/location_apartment_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="apt"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/location_road"
-            app:layout_constraintTop_toBottomOf="@id/location_road" />
+            app:layout_constraintStart_toStartOf="@id/location_road_input"
+            app:layout_constraintTop_toBottomOf="@id/location_road_input" />
 
         <TextView
-            android:id="@+id/location_city"
+            android:id="@+id/location_city_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="city"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/location_apartment"
-            app:layout_constraintTop_toBottomOf="@id/location_apartment" />
+            app:layout_constraintStart_toStartOf="@id/location_apartment_input"
+            app:layout_constraintTop_toBottomOf="@id/location_apartment_input" />
 
         <TextView
-            android:id="@+id/location_country_code"
+            android:id="@+id/location_country_code_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="country code"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/location_city"
-            app:layout_constraintTop_toBottomOf="@id/location_city" />
+            app:layout_constraintStart_toStartOf="@id/location_city_input"
+            app:layout_constraintTop_toBottomOf="@id/location_city_input" />
 
         <TextView
-            android:id="@+id/location_country"
+            android:id="@+id/location_country_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="country"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/location_country_code"
-            app:layout_constraintTop_toBottomOf="@id/location_country_code" />
+            app:layout_constraintStart_toStartOf="@id/location_country_code_input"
+            app:layout_constraintTop_toBottomOf="@id/location_country_code_input" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/location_image"
