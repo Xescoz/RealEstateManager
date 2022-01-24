@@ -19,4 +19,5 @@
     <string name="country_code">Country code</string>
     <string name="country">Country</string>
     <string name="confirm">Confirm</string>
+    <string name="description_dialog">Type the description of your picture</string>
 </resources>

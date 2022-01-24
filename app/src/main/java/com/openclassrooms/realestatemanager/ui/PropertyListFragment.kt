@@ -84,9 +84,6 @@ class PropertyListFragment : Fragment() {
         // layout configuration (layout, layout-sw600dp)
         val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
 
-        //val bundle = bundleOf("item" to ContentGenerator.generatePropertyContent()[0])
-        //itemDetailFragmentContainer?.findNavController()?.navigate(R.id.fragment_item_detail, bundle)
-
         /** Click Listener to trigger navigation based on if you have
          * a single pane layout or two pane layout
          */

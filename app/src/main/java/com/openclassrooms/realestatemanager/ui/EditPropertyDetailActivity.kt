@@ -1,22 +1,33 @@
 package com.openclassrooms.realestatemanager.ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputEditText
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEditPropertyDetailBinding
+import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
+import java.io.ByteArrayOutputStream
+
 
 class EditPropertyDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditPropertyDetailBinding
 
     private var property: Property? = null
+
+    private lateinit var adapter: PropertyDetailRecyclerViewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,14 +54,8 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         binding.locationCountryCodeEdit.setText(property!!.postcode)
         binding.locationCountryEdit.setText(property!!.country)
 
-        binding.photosRecyclerview.adapter = this.let {
-            property?.let { property ->
-                PropertyDetailRecyclerViewAdapter(
-                        property.photos,
-                        it.applicationContext
-                )
-            }
-        }
+        adapter= PropertyDetailRecyclerViewAdapter(property!!.photos,applicationContext)
+        binding.photosRecyclerview.adapter = adapter
 
         binding.buttonAddPhotos.setOnClickListener{
             createCameraGalleryDialog()
@@ -63,16 +68,16 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     private fun updateProperty(){
         val propertyUpdated = property
-        propertyUpdated!!.description = binding.descriptionInput.editText.toString()
-        propertyUpdated.surface = binding.surfaceInput.editText.toString()
-        propertyUpdated.nbOfRooms = binding.numberRoomsInput.editText.toString().toInt()
-        propertyUpdated.nbOfBedrooms = binding.numberBedroomInput.editText.toString().toInt()
-        propertyUpdated.nbOfBathrooms = binding.numberBathroomInput.editText.toString().toInt()
-        propertyUpdated.address = binding.locationRoadInput.editText.toString()
-        propertyUpdated.city = binding.locationCityInput.editText.toString()
-        propertyUpdated.apartment = binding.locationApartmentInput.editText.toString()
-        propertyUpdated.postcode = binding.locationCountryCodeInput.editText.toString()
-        propertyUpdated.country = binding.locationCountryInput.editText.toString()
+        propertyUpdated!!.description = binding.descriptionEdit.text.toString()
+        propertyUpdated.surface = binding.surfaceEdit.text.toString()
+        propertyUpdated.nbOfRooms = binding.numberRoomsEdit.text.toString()
+        propertyUpdated.nbOfBedrooms = binding.numberBedroomEdit.text.toString()
+        propertyUpdated.nbOfBathrooms = binding.numberBathroomEdit.text.toString()
+        propertyUpdated.address = binding.locationRoadEdit.text.toString()
+        propertyUpdated.city = binding.locationCityEdit.text.toString()
+        propertyUpdated.apartment = binding.locationApartmentEdit.text.toString()
+        propertyUpdated.postcode = binding.locationCountryCodeEdit.text.toString()
+        propertyUpdated.country = binding.locationCountryEdit.text.toString()
 
         val intent = Intent()
         intent.putExtra("ActivityResult", propertyUpdated)
@@ -109,12 +114,38 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("InflateParams")
+    private fun createDescriptionDialog(image:String){
+        val inflater = this.layoutInflater
+        val inflate = inflater.inflate(R.layout.description_dialog,null)
+        val dialogDescriptionEditText:TextInputEditText = inflate.findViewById(R.id.description_dialog_edit)
+
+        val alertDialog: AlertDialog = this.let {
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+                setView(inflate)
+                setPositiveButton(R.string.confirm,
+                        DialogInterface.OnClickListener { _, _ ->
+                            val photo = Photo(image,dialogDescriptionEditText.text.toString())
+                            property!!.photos.add(photo)
+                            adapter.updateList(property!!.photos)
+                        })
+            }
+
+            // Create the AlertDialog
+            builder.create()
+        }
+        alertDialog.show()
+
+    }
+
     private var resultLauncherCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
             val data: Intent? = result.data
+            val bitmap:Bitmap = data!!.extras!!.get("data") as Bitmap
+            createDescriptionDialog(bitmapToString(bitmap))
 
-            //data.extras.get("data") as Bitmap
         }
     }
 
@@ -122,8 +153,19 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
+            val uri: Uri? = data?.data
 
+            val source: ImageDecoder.Source = ImageDecoder.createSource(this.contentResolver, uri!!)
+            val bitmap: Bitmap = ImageDecoder.decodeBitmap(source)
+            createDescriptionDialog(bitmapToString(bitmap))
 
         }
+    }
+
+    private fun bitmapToString(bitmap: Bitmap): String {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b: ByteArray = baos.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 }

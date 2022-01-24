@@ -1,20 +1,20 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.provider.MediaStore
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemDetailBinding
 import com.openclassrooms.realestatemanager.models.Property
+
 
 /**
  * A fragment representing a single Item detail screen.
@@ -50,9 +50,9 @@ class PropertyDetailFragment : Fragment() {
         }
         else{
             arguments?.getParcelable("item")
-
         }
-        initView()
+
+        initView(propertyParcel)
 
     }
 
@@ -60,30 +60,33 @@ class PropertyDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+    private fun test(){
+        binding.descriptionContent.text = propertyParcel!!.description
+        binding.surfaceContent.text = propertyParcel!!.country}
 
-    private fun initView(){
-        binding.descriptionContent!!.text = propertyParcel?.description
+    private fun initView(property: Property?){
+        binding.descriptionContent.text = property?.description
 
-        binding.surfaceContent!!.text = propertyParcel?.surface
-        binding.numberRoomsContent!!.text = propertyParcel?.nbOfRooms.toString()
-        binding.numberBedroomContent.text = propertyParcel?.nbOfBedrooms.toString()
-        binding.numberBathroomContent!!.text = propertyParcel?.nbOfBathrooms.toString()
+        binding.surfaceContent.text = property?.surface
+        binding.numberRoomsContent.text = property?.nbOfRooms.toString()
+        binding.numberBedroomContent.text = property?.nbOfBedrooms.toString()
+        binding.numberBathroomContent.text = property?.nbOfBathrooms.toString()
 
-        binding.locationRoad!!.text = propertyParcel?.address
-        binding.locationCity!!.text = propertyParcel?.city
-        binding.locationApartment!!.text = propertyParcel?.apartment
-        binding.locationCountryCode!!.text = propertyParcel?.postcode
-        binding.locationCountry!!.text = propertyParcel?.country
+        binding.locationRoad.text = property?.address
+        binding.locationCity.text = property?.city
+        binding.locationApartment.text = property?.apartment
+        binding.locationCountryCode.text = property?.postcode
+        binding.locationCountry.text = property?.country
 
-        binding.buttonEditDetail!!.setOnClickListener{
+        binding.buttonEditDetail.setOnClickListener{
             val editPropertyIntent = Intent(context,EditPropertyDetailActivity::class.java)
-            editPropertyIntent.putExtra("Property",propertyParcel)
+            editPropertyIntent.putExtra("Property",property)
 
             editPropertyResultLauncher.launch(editPropertyIntent)
         }
 
         binding.photosRecyclerview.adapter = context?.let {
-            propertyParcel?.let { property ->
+            property?.let { property ->
                 PropertyDetailRecyclerViewAdapter(
                         property.photos,
                         it.applicationContext
@@ -93,12 +96,10 @@ class PropertyDetailFragment : Fragment() {
     }
 
 
-    private var editPropertyResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
-            val data: Intent? = result.data
-
-
+    private var editPropertyResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val value = it.data?.getParcelableExtra<Property>("ActivityResult")
+            initView(value)
         }
     }
 
