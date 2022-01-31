@@ -17,7 +17,7 @@ interface PropertyDao {
     @Query("DELETE FROM property_table")
     suspend fun deleteAll()
 
-    @Query("UPDATE property_table SET photos = :photos WHERE id = :id")
-    fun updatePhotos(photos: List<Photo>, id: Int)
+    @Update
+    suspend fun updateProperty(property: Property)
 
 }

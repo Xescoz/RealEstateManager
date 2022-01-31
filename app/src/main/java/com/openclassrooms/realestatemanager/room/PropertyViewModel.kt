@@ -14,8 +14,8 @@ class PropertyViewModel(private val repository: PropertyRepository): ViewModel()
         repository.insert(property)
     }
 
-    fun updatePhotos(photos: List<Photo>, id: Int){
-        repository.updatePhotos(photos,id)
+    fun updateProperty(property: Property) = viewModelScope.launch{
+        repository.updateProperty(property)
     }
 
 }

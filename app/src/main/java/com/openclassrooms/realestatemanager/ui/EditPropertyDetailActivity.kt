@@ -11,23 +11,33 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEditPropertyDetailBinding
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
+import com.openclassrooms.realestatemanager.room.PropertyApplication
+import com.openclassrooms.realestatemanager.room.PropertyViewModel
+import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
 import java.io.ByteArrayOutputStream
 
 
 class EditPropertyDetailActivity : AppCompatActivity() {
 
+    private val propertyViewModel: PropertyViewModel by viewModels {
+        PropertyViewModelFactory((this.application as PropertyApplication).repository)
+    }
+
     private lateinit var binding: ActivityEditPropertyDetailBinding
 
     private var property: Property? = null
 
-    private lateinit var adapter: PropertyDetailRecyclerViewAdapter
+    private lateinit var adapter: EditPropertyDetailRecyclerViewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +53,13 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     private fun init(){
 
+        val onLongClickListener = View.OnLongClickListener { itemView ->
+            val position = itemView.tag as Int
+            createDeleteDialog(position)
+            true
+
+        }
+
         binding.descriptionEdit.setText(property!!.description)
         binding.surfaceEdit.setText(property!!.surface)
         binding.numberRoomsEdit.setText(property!!.nbOfRooms.toString())
@@ -54,7 +71,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         binding.locationCountryCodeEdit.setText(property!!.postcode)
         binding.locationCountryEdit.setText(property!!.country)
 
-        adapter= PropertyDetailRecyclerViewAdapter(property!!.photos,applicationContext)
+        adapter= EditPropertyDetailRecyclerViewAdapter(property!!.photos,onLongClickListener)
         binding.photosRecyclerview.adapter = adapter
 
         binding.buttonAddPhotos.setOnClickListener{
@@ -82,8 +99,30 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         val intent = Intent()
         intent.putExtra("ActivityResult", propertyUpdated)
         setResult(RESULT_OK, intent)
+        propertyViewModel.updateProperty(propertyUpdated)
         finish()
 
+    }
+
+    private fun createDeleteDialog(position: Int){
+
+        val alertDialog: AlertDialog = this.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton(R.string.confirm,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            property!!.photos.removeAt(position)
+                            adapter.updateList(property!!.photos)
+                        })
+                setNegativeButton(R.string.cancel,
+                        DialogInterface.OnClickListener { dialog, id ->
+                            Toast.makeText(context,"Photo not deleted",Toast.LENGTH_SHORT).show()
+                        })
+                setMessage(R.string.delete_dialog)
+            }
+            builder.create()
+        }
+        alertDialog.show()
     }
 
 
@@ -105,13 +144,9 @@ class EditPropertyDetailActivity : AppCompatActivity() {
                         })
                 setMessage(R.string.camera_gallery_dialog)
             }
-
-            // Create the AlertDialog
             builder.create()
         }
-
         alertDialog.show()
-
     }
 
     @SuppressLint("InflateParams")

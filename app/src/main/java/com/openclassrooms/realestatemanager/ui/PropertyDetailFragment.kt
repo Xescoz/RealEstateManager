@@ -87,10 +87,7 @@ class PropertyDetailFragment : Fragment() {
 
         binding.photosRecyclerview.adapter = context?.let {
             property?.let { property ->
-                PropertyDetailRecyclerViewAdapter(
-                        property.photos,
-                        it.applicationContext
-                )
+                PropertyDetailRecyclerViewAdapter(property.photos)
             }
         }
     }

@@ -116,6 +116,7 @@ class PropertyListFragment : Fragment() {
             ).show()
             true
         }
+
         setupRecyclerView(recyclerView, onClickListener, onContextClickListener)
     }
 

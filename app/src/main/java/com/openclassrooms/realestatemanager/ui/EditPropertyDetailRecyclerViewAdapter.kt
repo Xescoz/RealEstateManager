@@ -15,10 +15,11 @@ import com.openclassrooms.realestatemanager.databinding.ItemPhotosBinding
 import com.openclassrooms.realestatemanager.models.Photo
 
 
-class PropertyDetailRecyclerViewAdapter(
-        private var photos: List<Photo>
+class EditPropertyDetailRecyclerViewAdapter(
+        private var photos: List<Photo>,
+        private val onLongClickListener: View.OnLongClickListener
 ) :
-        RecyclerView.Adapter<PropertyDetailRecyclerViewAdapter.ViewHolder>() {
+        RecyclerView.Adapter<EditPropertyDetailRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -33,6 +34,11 @@ class PropertyDetailRecyclerViewAdapter(
 
         holder.binding.photoDescription.text = photo.description
         holder.binding.photoImage.setImageBitmap(stringToBitMap(photo.picture))
+
+        with(holder.itemView) {
+            tag = position
+            setOnLongClickListener(onLongClickListener)
+        }
 
     }
 

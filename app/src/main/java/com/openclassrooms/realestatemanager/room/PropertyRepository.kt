@@ -9,8 +9,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
 
     val allProperty: Flow<List<Property>> = propertyDao.getAllProperty()
 
-    fun updatePhotos(photos: List<Photo>, id: Int){
-        propertyDao.updatePhotos(photos,id)
+    suspend fun updateProperty(property: Property){
+        propertyDao.updateProperty(property)
     }
 
     @Suppress("RedundantSuspendModifier")

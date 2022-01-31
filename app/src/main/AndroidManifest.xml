@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.EditPropertyDetailActivity"></activity>
+        <activity android:name=".ui.EditPropertyDetailActivity" />
         <activity
             android:name=".ui.PropertyDetailHostActivity"
             android:exported="true">
