@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.EditPropertyDetailActivity" />
         <activity
-            android:name=".ui.PropertyDetailHostActivity"
+            android:name=".ui.PropertyMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

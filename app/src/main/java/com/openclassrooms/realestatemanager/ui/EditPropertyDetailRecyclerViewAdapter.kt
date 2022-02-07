@@ -1,18 +1,13 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Build
-import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.databinding.ItemPhotosBinding
 import com.openclassrooms.realestatemanager.models.Photo
+import com.openclassrooms.realestatemanager.stringToBitMap
 
 
 class EditPropertyDetailRecyclerViewAdapter(
@@ -33,7 +28,7 @@ class EditPropertyDetailRecyclerViewAdapter(
         val photo = photos[position]
 
         holder.binding.photoDescription.text = photo.description
-        holder.binding.photoImage.setImageBitmap(stringToBitMap(photo.picture))
+        holder.binding.photoImage.setImageBitmap(photo.picture.stringToBitMap())
 
         with(holder.itemView) {
             tag = position
@@ -48,11 +43,6 @@ class EditPropertyDetailRecyclerViewAdapter(
     }
 
     override fun getItemCount() = photos.size
-
-    private fun stringToBitMap(encodedString: String): Bitmap? {
-        val encodeByte: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
-    }
 
     inner class ViewHolder(val binding: ItemPhotosBinding) : RecyclerView.ViewHolder(binding.root)
 

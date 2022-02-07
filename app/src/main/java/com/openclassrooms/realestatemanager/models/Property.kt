@@ -10,7 +10,7 @@ import kotlinx.parcelize.RawValue
 @Entity(tableName = "property_table")
 data class Property(
         @PrimaryKey
-        var id : Int,
+        var id : Int?,
         var date : String,
         var propertyType : String,
         var pointOfInterest: String,

@@ -23,4 +23,10 @@
     <string name="description_dialog">Type the description of your picture</string>
     <string name="delete_dialog">Are you sure you want to delete this photo?</string>
     <string name="add_property">Add property</string>
+    <string name="property_settings">Property Settings</string>
+    <string name="price">Price</string>
+    <string name="type_of_property">Type of Property</string>
+    <string name="sold">Sold</string>
+    <string name="agent_in_charge">Agent in charge</string>
+    <string name="main_picture_property">Main picture property</string>
 </resources>

@@ -3,7 +3,6 @@ package com.openclassrooms.realestatemanager.ui
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -24,7 +23,9 @@ import com.openclassrooms.realestatemanager.models.Property
 import com.openclassrooms.realestatemanager.room.PropertyApplication
 import com.openclassrooms.realestatemanager.room.PropertyViewModel
 import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
+import com.openclassrooms.realestatemanager.stringToBitMap
 import java.io.ByteArrayOutputStream
+import java.time.LocalDate
 
 
 class EditPropertyDetailActivity : AppCompatActivity() {
@@ -37,6 +38,10 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     private var property: Property? = null
 
+    private var isCreate: Boolean = false
+
+    private var isMainPicture: Boolean = false
+
     private lateinit var adapter: EditPropertyDetailRecyclerViewAdapter
 
 
@@ -47,9 +52,16 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
         property = intent.getParcelableExtra("Property")
 
+        isCreate = intent.getBooleanExtra("isCreate", false)
+
+        if(isCreate) {
+            property = Property(null,"","","",0,"",
+                        "²","","","","",false,null,"",
+                        "","","","", arrayListOf(),"", "")
+        }
+
         init()
     }
-
 
     private fun init(){
 
@@ -57,24 +69,57 @@ class EditPropertyDetailActivity : AppCompatActivity() {
             val position = itemView.tag as Int
             createDeleteDialog(position)
             true
-
         }
 
         binding.descriptionEdit.setText(property!!.description)
         binding.surfaceEdit.setText(property!!.surface)
-        binding.numberRoomsEdit.setText(property!!.nbOfRooms.toString())
-        binding.numberBedroomEdit.setText(property!!.nbOfBedrooms.toString())
-        binding.numberBathroomEdit.setText(property!!.nbOfBathrooms.toString())
+        binding.numberRoomsEdit.setText(property!!.nbOfRooms)
+        binding.numberBedroomEdit.setText(property!!.nbOfBedrooms)
+        binding.numberBathroomEdit.setText(property!!.nbOfBathrooms)
         binding.locationRoadEdit.setText(property!!.address)
         binding.locationCityEdit.setText(property!!.city)
         binding.locationApartmentEdit.setText(property!!.apartment)
         binding.locationCountryCodeEdit.setText(property!!.postcode)
         binding.locationCountryEdit.setText(property!!.country)
+        binding.priceEdit.setText(property!!.price.toString())
+        binding.typeOfPropertyEdit.setText(property!!.propertyType)
+        binding.agentEdit.setText(property!!.agent)
+
+        if (property!!.picture.isEmpty())
+            binding.pictureProperty.setImageDrawable(getDrawable(R.drawable.ic_baseline_add_property))
+        else
+            binding.pictureProperty.setImageBitmap(property!!.picture.stringToBitMap())
+
+        binding.pictureProperty.setOnLongClickListener {
+            isMainPicture = true
+            createCameraGalleryDialog()
+            true
+        }
+
+        if (property!!.sold){
+            binding.switchSold.isClickable = false
+            binding.switchSold.isChecked = true
+        }
+        else{
+            binding.switchSold.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    property!!.sold = true
+                    property!!.dateOfSale = LocalDate.now().toString()
+                } else {
+                    property!!.sold = false
+                    property!!.dateOfSale = null
+                }
+            }
+        }
+
+
+
 
         adapter= EditPropertyDetailRecyclerViewAdapter(property!!.photos,onLongClickListener)
         binding.photosRecyclerview.adapter = adapter
 
         binding.buttonAddPhotos.setOnClickListener{
+            isMainPicture = false
             createCameraGalleryDialog()
         }
 
@@ -95,11 +140,19 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         propertyUpdated.apartment = binding.locationApartmentEdit.text.toString()
         propertyUpdated.postcode = binding.locationCountryCodeEdit.text.toString()
         propertyUpdated.country = binding.locationCountryEdit.text.toString()
+        propertyUpdated.price = binding.priceEdit.text.toString().toInt()
+        propertyUpdated.propertyType = binding.typeOfPropertyEdit.text.toString()
+        propertyUpdated.agent = binding.agentEdit.text.toString()
 
-        val intent = Intent()
-        intent.putExtra("ActivityResult", propertyUpdated)
-        setResult(RESULT_OK, intent)
-        propertyViewModel.updateProperty(propertyUpdated)
+        if (isCreate)
+            propertyViewModel.insert(propertyUpdated)
+        else{
+            val intent = Intent()
+            intent.putExtra("ActivityResult", propertyUpdated)
+            setResult(RESULT_OK, intent)
+
+            propertyViewModel.updateProperty(propertyUpdated)
+        }
         finish()
 
     }
@@ -109,15 +162,15 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setPositiveButton(R.string.confirm,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            property!!.photos.removeAt(position)
-                            adapter.updateList(property!!.photos)
-                        })
-                setNegativeButton(R.string.cancel,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            Toast.makeText(context,"Photo not deleted",Toast.LENGTH_SHORT).show()
-                        })
+                setPositiveButton(R.string.confirm
+                ) { _, _ ->
+                    property!!.photos.removeAt(position)
+                    adapter.updateList(property!!.photos)
+                }
+                setNegativeButton(R.string.cancel
+                ) { _, _ ->
+                    Toast.makeText(context, "Photo not deleted", Toast.LENGTH_SHORT).show()
+                }
                 setMessage(R.string.delete_dialog)
             }
             builder.create()
@@ -131,17 +184,17 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setPositiveButton(R.string.gallery_confirmation,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            val actionPickIntent = Intent(Intent.ACTION_PICK)
-                            actionPickIntent.type = "image/*"
-                            resultLauncherGallery.launch(actionPickIntent)
-                        })
-                setNegativeButton(R.string.camera_confirmation,
-                        DialogInterface.OnClickListener { dialog, id ->
-                            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                            resultLauncherCamera.launch(cameraIntent)
-                        })
+                setPositiveButton(R.string.gallery_confirmation
+                ) { _, _ ->
+                    val actionPickIntent = Intent(Intent.ACTION_PICK)
+                    actionPickIntent.type = "image/*"
+                    resultLauncherGallery.launch(actionPickIntent)
+                }
+                setNegativeButton(R.string.camera_confirmation
+                ) { _, _ ->
+                    val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    resultLauncherCamera.launch(cameraIntent)
+                }
                 setMessage(R.string.camera_gallery_dialog)
             }
             builder.create()
@@ -160,12 +213,12 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
             builder.apply {
                 setView(inflate)
-                setPositiveButton(R.string.confirm,
-                        DialogInterface.OnClickListener { _, _ ->
-                            val photo = Photo(image,dialogDescriptionEditText.text.toString())
-                            property!!.photos.add(photo)
-                            adapter.updateList(property!!.photos)
-                        })
+                setPositiveButton(R.string.confirm
+                ) { _, _ ->
+                    val photo = Photo(image, dialogDescriptionEditText.text.toString())
+                    property!!.photos.add(photo)
+                    adapter.updateList(property!!.photos)
+                }
             }
 
             // Create the AlertDialog
@@ -175,12 +228,20 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     }
 
+    private fun editPicture(bitmap: Bitmap){
+        if (isMainPicture){
+            binding.pictureProperty.setImageBitmap(bitmap)
+            property!!.picture = bitmapToString(bitmap)
+        }
+        else
+            createDescriptionDialog(bitmapToString(bitmap))
+    }
+
     private var resultLauncherCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             val bitmap:Bitmap = data!!.extras!!.get("data") as Bitmap
-            createDescriptionDialog(bitmapToString(bitmap))
-
+            editPicture(bitmap)
         }
     }
 
@@ -188,12 +249,11 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             // There are no request codes
             val data: Intent? = result.data
-            val uri: Uri? = data?.data
+            val uri: Uri? = data!!.data
 
             val source: ImageDecoder.Source = ImageDecoder.createSource(this.contentResolver, uri!!)
             val bitmap: Bitmap = ImageDecoder.decodeBitmap(source)
-            createDescriptionDialog(bitmapToString(bitmap))
-
+            editPicture(bitmap)
         }
     }
 
