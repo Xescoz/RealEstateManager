@@ -226,15 +226,21 @@
             app:layout_constraintStart_toStartOf="@id/location_country_code"
             app:layout_constraintTop_toBottomOf="@id/location_country_code" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/location_image"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
+        <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
-            android:src="@drawable/ic_baseline_android_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/location_title" />
+            app:layout_constraintTop_toTopOf="@id/location_title"
+            map:cameraZoom="13"
+            map:mapType="normal"
+            map:uiZoomControls="false"
+            map:uiCompass="false"
+            android:clickable="false"
+            map:liteMode="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

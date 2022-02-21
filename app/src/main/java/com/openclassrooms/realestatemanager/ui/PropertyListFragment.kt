@@ -54,7 +54,7 @@ class PropertyListFragment : Fragment() {
     }
 
     private val propertyViewModel: PropertyViewModel by viewModels {
-        PropertyViewModelFactory((activity?.application as PropertyApplication).repository)
+        PropertyViewModelFactory((activity?.application as PropertyApplication).propertyRepository,(activity?.application as PropertyApplication).agentRepository)
     }
 
     private var _binding: FragmentItemListBinding? = null

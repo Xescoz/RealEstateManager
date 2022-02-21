@@ -2,16 +2,23 @@ package com.openclassrooms.realestatemanager.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemDetailBinding
 import com.openclassrooms.realestatemanager.models.Property
 
@@ -22,7 +29,7 @@ import com.openclassrooms.realestatemanager.models.Property
  * in two-pane mode (on larger screen devices) or self-contained
  * on handsets.
  */
-class PropertyDetailFragment : Fragment() {
+class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
 
     private val args: PropertyDetailFragmentArgs by navArgs()
 
@@ -32,12 +39,16 @@ class PropertyDetailFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private lateinit var mMap: GoogleMap
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
 
         _binding = FragmentItemDetailBinding.inflate(inflater, container, false)
+
+
 
         return binding.root
     }
@@ -52,8 +63,24 @@ class PropertyDetailFragment : Fragment() {
             arguments?.getParcelable("item")
         }
 
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map_image) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
         initView(propertyParcel)
 
+
+
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+        var propertyLocation = LatLng(48.864716, 2.349014)
+        if(propertyParcel!=null){
+            propertyLocation = getLatLngFromAddress(propertyParcel!!.address+", "+propertyParcel!!.city)
+        }
+
+        mMap.addMarker(MarkerOptions().position(propertyLocation))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(propertyLocation, 16F))
     }
 
     override fun onDestroyView() {
@@ -92,12 +119,33 @@ class PropertyDetailFragment : Fragment() {
         }
     }
 
+    private fun getLatLngFromAddress(strAddress: String): LatLng {
+        val addressList: List<Address?>
+        val coder = Geocoder(activity)
+
+        addressList = coder.getFromLocationName(strAddress, 1)
+        val address = addressList[0]
+
+        return LatLng(address!!.latitude, address.longitude)
+
+    }
+
 
     private var editPropertyResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             val value = it.data?.getParcelableExtra<Property>("ActivityResult")
             initView(value)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
 }

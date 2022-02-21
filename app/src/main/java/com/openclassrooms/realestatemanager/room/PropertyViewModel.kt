@@ -1,30 +1,31 @@
 package com.openclassrooms.realestatemanager.room
 
 import androidx.lifecycle.*
-import com.openclassrooms.realestatemanager.models.Photo
+import com.openclassrooms.realestatemanager.models.Agent
 import com.openclassrooms.realestatemanager.models.Property
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-class PropertyViewModel(private val repository: PropertyRepository): ViewModel() {
+class PropertyViewModel(private val propertyRepository: PropertyRepository, agentRepository: AgentRepository): ViewModel() {
 
-    val allProperty: LiveData<List<Property>> = repository.allProperty.asLiveData()
+    val allProperty: LiveData<List<Property>> = propertyRepository.allProperty.asLiveData()
+
+    val allAgent: LiveData<List<Agent>> = agentRepository.allAgent.asLiveData()
 
     fun insert(property: Property) = viewModelScope.launch {
-        repository.insert(property)
+        propertyRepository.insert(property)
     }
 
     fun updateProperty(property: Property) = viewModelScope.launch{
-        repository.updateProperty(property)
+        propertyRepository.updateProperty(property)
     }
 
 }
 
-class PropertyViewModelFactory(private val repository: PropertyRepository) : ViewModelProvider.Factory {
+class PropertyViewModelFactory(private val propertyRepository: PropertyRepository,private val agentRepository: AgentRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PropertyViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return PropertyViewModel(repository) as T
+            return PropertyViewModel(propertyRepository,agentRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

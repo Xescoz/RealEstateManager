@@ -20,9 +20,7 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEditPropertyDetailBinding
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
-import com.openclassrooms.realestatemanager.room.PropertyApplication
-import com.openclassrooms.realestatemanager.room.PropertyViewModel
-import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
+import com.openclassrooms.realestatemanager.room.*
 import com.openclassrooms.realestatemanager.stringToBitMap
 import java.io.ByteArrayOutputStream
 import java.time.LocalDate
@@ -31,7 +29,7 @@ import java.time.LocalDate
 class EditPropertyDetailActivity : AppCompatActivity() {
 
     private val propertyViewModel: PropertyViewModel by viewModels {
-        PropertyViewModelFactory((this.application as PropertyApplication).repository)
+        PropertyViewModelFactory((this.application as PropertyApplication).propertyRepository,(this.application as PropertyApplication).agentRepository)
     }
 
     private lateinit var binding: ActivityEditPropertyDetailBinding
@@ -262,5 +260,15 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val b: ByteArray = baos.toByteArray()
         return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (this as AppCompatActivity).supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (this as AppCompatActivity).supportActionBar!!.show()
     }
 }

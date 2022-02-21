@@ -29,4 +29,7 @@
     <string name="sold">Sold</string>
     <string name="agent_in_charge">Agent in charge</string>
     <string name="main_picture_property">Main picture property</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="no_location_permission">Location permission are denied.Please turn it on.</string>
+    <string name="location_rationale">Ask Fine location permission</string>
 </resources>

@@ -3,16 +3,17 @@ package com.openclassrooms.realestatemanager.room
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.openclassrooms.realestatemanager.models.Photo
+import com.openclassrooms.realestatemanager.models.Agent
 import com.openclassrooms.realestatemanager.models.Property
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Property::class],version = 1,exportSchema = false)
+@Database(entities = [Property::class, Agent::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class PropertyRoomDatabase : RoomDatabase() {
 
     abstract fun propertyDao(): PropertyDao
+    abstract fun agentDao(): AgentDao
 
     private class PropertyDatabaseCallback(
             private val scope: CoroutineScope
@@ -27,16 +28,25 @@ abstract class PropertyRoomDatabase : RoomDatabase() {
                     // Add sample words.
                     var property = Property(0,"13/12/2021","Loft","School,Parc",1200000,"",
                             "320 m²","5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,null,"Paris",
-                            "5 rue des tullipes","France","5A","75000", arrayListOf(),"", "Bob KIRTH")
+                            "9 rue Jean Daudin","France","5A","75000", arrayListOf(),"", "Bob KIRTH")
                     propertyDao.insert(property)
                     property = Property(1,"10/12/2021","House","Parc",1800000,"",
-                            "310 m²","8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Laval",
-                            "5 rue des tullipes","France","","53000",arrayListOf(),"", "Jean FRUIT")
+                            "310 m²","8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Paris",
+                            "20 Rue Oudinot","France","","75000",arrayListOf(),"", "Jean FRUIT")
                     propertyDao.insert(property)
                     property = Property(2,"","House","Parc,Shop",2400000,"",
-                            "310 m²","8","2","3","This is a new description",true,"05/12/2021","Laval",
-                            "3 rue des paquerettes","France","","53000",arrayListOf(),"", "Paul LIME")
+                            "310 m²","8","2","3","This is a new description",true,"05/12/2021","Paris",
+                            "22 Rue François Bonvin","France","","75000",arrayListOf(),"", "Paul LIME")
                     propertyDao.insert(property)
+
+                    val agentDao = database.agentDao()
+
+                    var agent = Agent("Paul LIME")
+                    agentDao.insert(agent)
+                    agent = Agent("Jean FRUIT")
+                    agentDao.insert(agent)
+                    agent = Agent("Bob KIRTH")
+                    agentDao.insert(agent)
 
                 }
             }

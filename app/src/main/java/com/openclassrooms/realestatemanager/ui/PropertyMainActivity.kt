@@ -20,12 +20,13 @@ import com.openclassrooms.realestatemanager.models.Property
 class PropertyMainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainPropertylBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        val binding = ActivityMainPropertylBinding.inflate(layoutInflater)
+        binding = ActivityMainPropertylBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
@@ -46,17 +47,16 @@ class PropertyMainActivity : AppCompatActivity() {
                 val createPropertyIntent = Intent(this,EditPropertyDetailActivity::class.java)
                 createPropertyIntent.putExtra("isCreate",true)
                 startActivity(createPropertyIntent)
-
-                //createPropertyResultLauncher.launch(createPropertyIntent)
-                //Toast.makeText(applicationContext,"add a property",Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.show_map_button -> {
+                val action = PropertyListFragmentDirections.showMapFragment()
+                binding.navHostFragmentItemDetail.findNavController().navigate(action)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    private var createPropertyResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_item_detail)

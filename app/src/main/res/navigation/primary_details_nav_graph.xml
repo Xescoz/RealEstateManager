@@ -12,7 +12,20 @@
         <action
             android:id="@+id/show_item_detail"
             app:destination="@id/item_detail_fragment" />
+        <action
+            android:id="@+id/show_map_fragment"
+            app:destination="@id/map_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.openclassrooms.realestatemanager.ui.MapFragment"
+        android:label="MapFragment">
+        <action
+            android:id="@+id/show_item_detail"
+            app:destination="@id/item_detail_fragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/item_detail_fragment"
         android:name="com.openclassrooms.realestatemanager.ui.PropertyDetailFragment"
@@ -24,4 +37,5 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
 </navigation>

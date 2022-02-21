@@ -318,13 +318,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location_road_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/content_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@id/location_image"
             app:layout_constraintStart_toStartOf="@id/location_title"
             app:layout_constraintTop_toBottomOf="@id/location_title">
             <com.google.android.material.textfield.TextInputEditText
@@ -338,14 +337,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location_apartment_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_road_input"
-            app:layout_constraintTop_toBottomOf="@id/location_road_input"
-            app:layout_constraintEnd_toStartOf="@id/location_image">
+            app:layout_constraintTop_toBottomOf="@id/location_road_input">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_apartment_edit"
                 android:layout_width="match_parent"
@@ -357,14 +356,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location_city_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_apartment_input"
-            app:layout_constraintTop_toBottomOf="@id/location_apartment_input"
-            app:layout_constraintEnd_toStartOf="@id/location_image">
+            app:layout_constraintTop_toBottomOf="@id/location_apartment_input">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_city_edit"
                 android:layout_width="match_parent"
@@ -376,14 +375,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location_country_code_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_city_input"
-            app:layout_constraintTop_toBottomOf="@id/location_city_input"
-            app:layout_constraintEnd_toStartOf="@id/location_image">
+            app:layout_constraintTop_toBottomOf="@id/location_city_input">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_country_code_edit"
                 android:layout_width="match_parent"
@@ -395,14 +394,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/location_country_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
+            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_country_code_input"
-            app:layout_constraintTop_toBottomOf="@id/location_country_code_input"
-            app:layout_constraintEnd_toStartOf="@id/location_image">
+            app:layout_constraintTop_toBottomOf="@id/location_country_code_input">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_country_edit"
                 android:layout_width="match_parent"
@@ -410,16 +409,6 @@
                 android:hint="@string/country"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/location_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
-            android:src="@drawable/ic_baseline_android_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/location_title" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/confirm_button"
