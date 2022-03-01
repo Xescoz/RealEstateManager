@@ -32,4 +32,13 @@
     <string name="title_activity_maps">Map</string>
     <string name="no_location_permission">Location permission are denied.Please turn it on.</string>
     <string name="location_rationale">Ask Fine location permission</string>
+    <string name="show_map">Show Map</string>
+    <string name="show_search">Show Search</string>
+    <string name="size">Size</string>
+    <string name="number_of_photos">Number of photos</string>
+    <string name="date_for_range_from_today">Date for range from today</string>
+    <string name="date_of_sale_for_range_from_today">Date of sale for range from today</string>
+    <string name="point_of_interest">Point of interest</string>
+    <string name="search_property">Search Property</string>
+    <string name="date_picker">%1$s/%2$s/%3$d</string>
 </resources>

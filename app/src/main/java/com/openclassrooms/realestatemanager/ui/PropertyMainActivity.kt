@@ -49,6 +49,11 @@ class PropertyMainActivity : AppCompatActivity() {
                 startActivity(createPropertyIntent)
                 true
             }
+            R.id.show_search_button -> {
+                val searchPropertyIntent = Intent(this,SearchPropertyActivity::class.java)
+                startActivity(searchPropertyIntent)
+                true
+            }
             R.id.show_map_button -> {
                 val action = PropertyListFragmentDirections.showMapFragment()
                 binding.navHostFragmentItemDetail.findNavController().navigate(action)
