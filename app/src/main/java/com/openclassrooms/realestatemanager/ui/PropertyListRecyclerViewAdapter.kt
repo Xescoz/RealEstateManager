@@ -13,7 +13,7 @@ import com.openclassrooms.realestatemanager.models.Property
 import com.openclassrooms.realestatemanager.stringToBitMap
 
 class PropertyListRecyclerViewAdapter(
-        private val values: List<Property>,
+        private var values: List<Property>,
         private val onClickListener: View.OnClickListener,
         private val onContextClickListener: View.OnContextClickListener,
         private val context : Context
@@ -52,6 +52,10 @@ class PropertyListRecyclerViewAdapter(
             setOnClickListener(onClickListener)
             setOnContextClickListener(onContextClickListener)
         }
+    }
+
+    fun updateList(updatedList :List<Property>){
+        values = updatedList
     }
 
     override fun getItemCount() = values.size

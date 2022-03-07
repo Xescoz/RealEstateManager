@@ -27,15 +27,15 @@ abstract class PropertyRoomDatabase : RoomDatabase() {
 
                     // Add sample words.
                     var property = Property(0,"13/12/2021","Loft","School,Parc",1200000,"",
-                            "320 m²","5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,null,"Paris",
+                            320,"5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,null,"Paris",
                             "9 rue Jean Daudin","France","5A","75000", arrayListOf(),"", "Bob KIRTH")
                     propertyDao.insert(property)
                     property = Property(1,"10/12/2021","House","Parc",1800000,"",
-                            "310 m²","8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Paris",
+                            310,"8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Paris",
                             "20 Rue Oudinot","France","","75000",arrayListOf(),"", "Jean FRUIT")
                     propertyDao.insert(property)
                     property = Property(2,"","House","Parc,Shop",2400000,"",
-                            "310 m²","8","2","3","This is a new description",true,"05/12/2021","Paris",
+                            310,"8","2","3","This is a new description",true,"05/12/2021","Paris",
                             "22 Rue François Bonvin","France","","75000",arrayListOf(),"", "Paul LIME")
                     propertyDao.insert(property)
 

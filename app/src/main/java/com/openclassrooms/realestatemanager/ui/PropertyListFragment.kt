@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,8 @@ class PropertyListFragment : Fragment() {
         }
         false
     }
+
+    private lateinit var adapter: PropertyListRecyclerViewAdapter
 
     private val propertyViewModel: PropertyViewModel by viewModels {
         PropertyViewModelFactory((activity?.application as PropertyApplication).propertyRepository,(activity?.application as PropertyApplication).agentRepository)
@@ -125,16 +128,24 @@ class PropertyListFragment : Fragment() {
             onClickListener: View.OnClickListener,
             onContextClickListener: View.OnContextClickListener
     ) {
+
         propertyViewModel.allProperty.observe(viewLifecycleOwner, { propertyList ->
-            recyclerView.adapter = context?.let {
+
+            adapter = context?.let {
                 PropertyListRecyclerViewAdapter(
                         propertyList,
                         onClickListener,
                         onContextClickListener,
                         it.applicationContext
                 )
-            }
+            }!!
+            recyclerView.adapter = adapter
         })
+    }
+
+    fun updateList(propertyList: ArrayList<Property>){
+        adapter.updateList(propertyList)
+        adapter.notifyDataSetChanged()
     }
 
     override fun onDestroyView() {

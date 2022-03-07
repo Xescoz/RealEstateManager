@@ -54,7 +54,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
         if(isCreate) {
             property = Property(null,"","","",0,"",
-                        "²","","","","",false,null,"",
+                        0,"","","","",false,null,"",
                         "","","","", arrayListOf(),"", "")
         }
 
@@ -70,7 +70,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         }
 
         binding.descriptionEdit.setText(property!!.description)
-        binding.surfaceEdit.setText(property!!.surface)
+        binding.surfaceEdit.setText(property!!.surface.toString())
         binding.numberRoomsEdit.setText(property!!.nbOfRooms)
         binding.numberBedroomEdit.setText(property!!.nbOfBedrooms)
         binding.numberBathroomEdit.setText(property!!.nbOfBathrooms)
@@ -129,7 +129,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
     private fun updateProperty(){
         val propertyUpdated = property
         propertyUpdated!!.description = binding.descriptionEdit.text.toString()
-        propertyUpdated.surface = binding.surfaceEdit.text.toString()
+        propertyUpdated.surface = binding.surfaceEdit.text.toString().toInt()
         propertyUpdated.nbOfRooms = binding.numberRoomsEdit.text.toString()
         propertyUpdated.nbOfBedrooms = binding.numberBedroomEdit.text.toString()
         propertyUpdated.nbOfBathrooms = binding.numberBathroomEdit.text.toString()

@@ -76,7 +76,7 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         var propertyLocation = LatLng(48.864716, 2.349014)
         if(propertyParcel!=null){
-            propertyLocation = getLatLngFromAddress(propertyParcel!!.address+", "+propertyParcel!!.city)
+            propertyLocation = getLatLngFromAddress(propertyParcel?.address+", "+propertyParcel?.city)
         }
 
         mMap.addMarker(MarkerOptions().position(propertyLocation))
@@ -87,14 +87,11 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         super.onDestroyView()
         _binding = null
     }
-    private fun test(){
-        binding.descriptionContent.text = propertyParcel!!.description
-        binding.surfaceContent.text = propertyParcel!!.country}
 
     private fun initView(property: Property?){
         binding.descriptionContent.text = property?.description
 
-        binding.surfaceContent.text = property?.surface
+        binding.surfaceContent.text = resources.getString(R.string.surface_string,property?.surface)
         binding.numberRoomsContent.text = property?.nbOfRooms.toString()
         binding.numberBedroomContent.text = property?.nbOfBedrooms.toString()
         binding.numberBathroomContent.text = property?.nbOfBathrooms.toString()

@@ -41,4 +41,5 @@
     <string name="point_of_interest">Point of interest</string>
     <string name="search_property">Search Property</string>
     <string name="date_picker">%1$s/%2$s/%3$d</string>
+    <string name="surface_string">%1$d m²</string>
 </resources>

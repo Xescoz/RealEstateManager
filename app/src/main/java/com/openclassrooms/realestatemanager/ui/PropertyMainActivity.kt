@@ -3,10 +3,10 @@ package com.openclassrooms.realestatemanager.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -16,6 +16,7 @@ import androidx.navigation.ui.navigateUp
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityMainPropertylBinding
 import com.openclassrooms.realestatemanager.models.Property
+
 
 class PropertyMainActivity : AppCompatActivity() {
 
@@ -51,7 +52,7 @@ class PropertyMainActivity : AppCompatActivity() {
             }
             R.id.show_search_button -> {
                 val searchPropertyIntent = Intent(this,SearchPropertyActivity::class.java)
-                startActivity(searchPropertyIntent)
+                searchPropertyActivityResultLauncher.launch(searchPropertyIntent)
                 true
             }
             R.id.show_map_button -> {
@@ -60,6 +61,20 @@ class PropertyMainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private var searchPropertyActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val value = it.data?.getParcelableArrayListExtra<Property>("ActivityResult")
+
+            val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
+
+            val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
+
+            if (value != null) {
+                fragment.updateList(value)
+            }
         }
     }
 
