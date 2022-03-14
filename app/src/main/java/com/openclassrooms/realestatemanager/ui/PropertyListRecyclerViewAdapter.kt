@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class PropertyListRecyclerViewAdapter(
 
     fun updateList(updatedList :List<Property>){
         values = updatedList
+        Log.v("Ping adapter","good")
     }
 
     override fun getItemCount() = values.size

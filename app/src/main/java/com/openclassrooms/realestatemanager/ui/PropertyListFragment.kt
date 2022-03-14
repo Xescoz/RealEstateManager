@@ -31,29 +31,6 @@ import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
 
 class PropertyListFragment : Fragment() {
 
-    /**
-     * Method to intercept global key events in the
-     * item list fragment to trigger keyboard shortcuts
-     * Currently provides a toast when Ctrl + Z and Ctrl + F
-     * are triggered
-     */
-    private val unhandledKeyEventListenerCompat = ViewCompat.OnUnhandledKeyEventListenerCompat { v, event ->
-        if (event.keyCode == KeyEvent.KEYCODE_Z && event.isCtrlPressed) {
-            Toast.makeText(
-                    v.context,
-                    "Undo (Ctrl + Z) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show()
-        } else if (event.keyCode == KeyEvent.KEYCODE_F && event.isCtrlPressed) {
-            Toast.makeText(
-                    v.context,
-                    "Find (Ctrl + F) shortcut triggered",
-                    Toast.LENGTH_LONG
-            ).show()
-        }
-        false
-    }
-
     private lateinit var adapter: PropertyListRecyclerViewAdapter
 
     private val propertyViewModel: PropertyViewModel by viewModels {
@@ -78,8 +55,6 @@ class PropertyListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.addOnUnhandledKeyEventListener(view, unhandledKeyEventListenerCompat)
 
         val recyclerView: RecyclerView = binding.itemList
 
@@ -145,7 +120,11 @@ class PropertyListFragment : Fragment() {
 
     fun updateList(propertyList: ArrayList<Property>){
         adapter.updateList(propertyList)
+        Log.v("Ping Fragment","good")
+        Log.v("List Size Fragment", propertyList.size.toString())
         adapter.notifyDataSetChanged()
+
+        Log.v("adapter size",adapter.itemCount.toString())
     }
 
     override fun onDestroyView() {

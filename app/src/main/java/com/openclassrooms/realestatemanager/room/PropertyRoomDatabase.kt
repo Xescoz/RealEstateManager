@@ -26,16 +26,16 @@ abstract class PropertyRoomDatabase : RoomDatabase() {
                     val propertyDao = database.propertyDao()
 
                     // Add sample words.
-                    var property = Property(0,"13/12/2021","Loft","School,Parc",1200000,"",
-                            320,"5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,null,"Paris",
+                    var property = Property(0,"13/03/2022","Loft","School",420000,"",
+                            320,0,"5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,null,"Berlin",
                             "9 rue Jean Daudin","France","5A","75000", arrayListOf(),"", "Bob KIRTH")
                     propertyDao.insert(property)
-                    property = Property(1,"10/12/2021","House","Parc",1800000,"",
-                            310,"8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Paris",
+                    property = Property(1,"10/03/2022","House","Parc",580000,"",
+                            210,0,"8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,null,"Paris",
                             "20 Rue Oudinot","France","","75000",arrayListOf(),"", "Jean FRUIT")
                     propertyDao.insert(property)
-                    property = Property(2,"","House","Parc,Shop",2400000,"",
-                            310,"8","2","3","This is a new description",true,"05/12/2021","Paris",
+                    property = Property(2,"10/03/2022","House","Shop",340000,"",
+                            250,0,"8","2","3","This is a new description",true,"11/03/2022","Paris",
                             "22 Rue François Bonvin","France","","75000",arrayListOf(),"", "Paul LIME")
                     propertyDao.insert(property)
 

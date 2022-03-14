@@ -20,6 +20,14 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         propertyDao.insert(property)
     }
 
+    fun getPropertyWherePointOfInterest(pointOfInterest: String): Flow<List<Property>>{
+        return propertyDao.getPropertyWherePointOfInterest(pointOfInterest)
+    }
+
+    fun getPropertyWhereNumberOfPhotos(numberOfPhotos: Int): Flow<List<Property>>{
+        return propertyDao.getPropertyWhereNumberOfPhotos(numberOfPhotos)
+    }
+
     fun getPropertyWhereCity(city: String):Flow<List<Property>> {
         return propertyDao.getPropertyWhereCity(city)
     }
@@ -31,11 +39,11 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         return propertyDao.getPropertyWhereDateOfSale(dateOfSale)
     }
 
-    fun getPropertyWhereSizeBetween(minSize: String, maxSize: String): Flow<List<Property>>{
+    fun getPropertyWhereSizeBetween(minSize: Int, maxSize: Int): Flow<List<Property>>{
         return propertyDao.getPropertyWhereSizeBetween(minSize, maxSize)
     }
 
-    fun getPropertyWherePriceBetween(minPrice: String, maxPrice: String): Flow<List<Property>>{
+    fun getPropertyWherePriceBetween(minPrice: Int, maxPrice: Int): Flow<List<Property>>{
         return propertyDao.getPropertyWherePriceBetween(minPrice, maxPrice)
     }
 

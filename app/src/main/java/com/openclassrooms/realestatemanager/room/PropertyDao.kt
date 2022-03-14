@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.room
 
 import androidx.room.*
+import com.google.android.gms.maps.model.PointOfInterest
 import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +24,12 @@ interface PropertyDao {
     @Query("SELECT * FROM property_table WHERE city = :city")
     fun getPropertyWhereCity(city: String): Flow<List<Property>>
 
+    @Query("SELECT * FROM property_table WHERE pointOfInterest = :pointOfInterest")
+    fun getPropertyWherePointOfInterest(pointOfInterest: String): Flow<List<Property>>
+
+    @Query("SELECT * FROM property_table WHERE numberOfPhotos = :numberOfPhotos")
+    fun getPropertyWhereNumberOfPhotos(numberOfPhotos: Int): Flow<List<Property>>
+
     @Query("SELECT * FROM property_table WHERE date = :date")
     fun getPropertyWhereDate(date: String): Flow<List<Property>>
 
@@ -30,8 +37,8 @@ interface PropertyDao {
     fun getPropertyWhereDateOfSale(dateOfSale: String): Flow<List<Property>>
 
     @Query("SELECT * FROM property_table WHERE surface BETWEEN :minSize AND :maxSize")
-    fun getPropertyWhereSizeBetween(minSize: String, maxSize: String): Flow<List<Property>>
+    fun getPropertyWhereSizeBetween(minSize: Int, maxSize: Int): Flow<List<Property>>
 
     @Query("SELECT * FROM property_table WHERE price BETWEEN :minPrice AND :maxPrice")
-    fun getPropertyWherePriceBetween(minPrice: String, maxPrice: String): Flow<List<Property>>
+    fun getPropertyWherePriceBetween(minPrice: Int, maxPrice: Int): Flow<List<Property>>
 }

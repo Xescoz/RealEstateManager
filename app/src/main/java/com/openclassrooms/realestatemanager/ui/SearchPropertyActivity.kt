@@ -4,19 +4,22 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.DatePicker
+
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.DialogFragment
-import com.openclassrooms.realestatemanager.DatePickerFragment
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivitySearchPropertyBinding
-import com.openclassrooms.realestatemanager.models.Property
 import com.openclassrooms.realestatemanager.room.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class SearchPropertyActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+class SearchPropertyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchPropertyBinding
+    private val calendar = Calendar.getInstance()
+    private val year = calendar[Calendar.YEAR]
+    private val month = calendar[Calendar.MONTH]
+    private val day = calendar[Calendar.DAY_OF_MONTH]
 
     private val searchPropertyViewModel: SearchPropertyViewModel by viewModels {
         SearchPropertyViewModelFactory((this.application as PropertyApplication).propertyRepository)
@@ -43,11 +46,11 @@ class SearchPropertyActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLi
     }
 
     private fun confirm(){
-        if(binding.cityEdit.text != null){
+        if(binding.cityEdit.text?.isNotEmpty() == true){
             searchPropertyViewModel.getPropertyWhereCity(binding.cityEdit.text.toString()).observe(this, {propertyList->
                 if(propertyList!=null){
                     val intent = Intent()
-                    Log.v("TEST",propertyList.size.toString())
+                    Log.v("City",binding.cityEdit.text.toString())
                     intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
                     setResult(RESULT_OK, intent)
                     finish()
@@ -55,6 +58,77 @@ class SearchPropertyActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLi
 
             })
         }
+        if(binding.dateEdit.text?.isNotEmpty() == true){
+            searchPropertyViewModel.getPropertyWhereDate(binding.dateEdit.text.toString()).observe(this ,{propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    Log.v("Date",binding.dateEdit.text.toString())
+                    Log.v("List Size",propertyList.size.toString())
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+        if(binding.photosEdit.text?.isNotEmpty() == true){
+            searchPropertyViewModel.getPropertyWhereNumberOfPhotos(binding.photosEdit.text.toString().toInt()).observe(this ,{propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+        if(binding.dateOfSaleEdit.text?.isNotEmpty() == true){
+            searchPropertyViewModel.getPropertyWhereDateOfSale(binding.dateOfSaleEdit.text.toString()).observe(this ,{propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    Log.v("Date Of Sale",binding.dateOfSaleEdit.text.toString())
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+        if(binding.pointOfInterestEdit.text?.isNotEmpty() == true){
+            searchPropertyViewModel.getPropertyWherePointOfInterest(binding.pointOfInterestEdit.text.toString()).observe(this ,{propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    Log.v("Point Of Interest",binding.pointOfInterestEdit.text.toString())
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+        if (binding.priceSlider.values[0].toInt()!=0 || binding.priceSlider.values[1].toInt()!=1000000){
+            searchPropertyViewModel.getPropertyWherePriceBetween(binding.priceSlider.values[0].toInt(), binding.priceSlider.values[1].toInt()).observe(this ,{ propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+        if (binding.sizeSlider.values[0].toInt()!=0 || binding.sizeSlider.values[1].toInt()!=500){
+            searchPropertyViewModel.getPropertyWhereSizeBetween(binding.sizeSlider.values[0].toInt(), binding.sizeSlider.values[1].toInt()).observe(this ,{ propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+        }
+
 
     }
 
@@ -64,23 +138,29 @@ class SearchPropertyActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLi
 
 
     private fun showDatePickerDialog() {
-        val newFragment: DialogFragment = DatePickerFragment()
-        newFragment.show(supportFragmentManager, "datePicker")
+        DatePickerDialog(this,datePicker,year,month,day).show()
     }
 
     private fun showDateOfSalePickerDialog() {
-        val newFragment: DialogFragment = DatePickerFragment()
-        newFragment.show(supportFragmentManager, "dateOfSalePicker")
+        DatePickerDialog(this,dateOfSalePicker,year,month,day).show()
     }
 
-    override fun onDateSet(view: DatePicker?, year: Int, monthData: Int, dayData: Int) {
+    private val datePicker = DatePickerDialog.OnDateSetListener { _, year, monthData, dayData ->
         var monthToChange = monthData
         monthToChange++
         val month: String = intToString(monthToChange)
         val day: String = intToString(dayData)
 
         binding.dateEdit.setText(getString(R.string.date_picker, day, month, year))
+    }
 
+    private val dateOfSalePicker = DatePickerDialog.OnDateSetListener { _, year, monthData, dayData ->
+        var monthToChange = monthData
+        monthToChange++
+        val month: String = intToString(monthToChange)
+        val day: String = intToString(dayData)
+
+        binding.dateOfSaleEdit.setText(getString(R.string.date_picker, day, month, year))
     }
 
     private fun intToString(intToChange: Int): String {

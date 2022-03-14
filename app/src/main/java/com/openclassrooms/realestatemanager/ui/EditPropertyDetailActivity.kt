@@ -54,7 +54,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
         if(isCreate) {
             property = Property(null,"","","",0,"",
-                        0,"","","","",false,null,"",
+                        0,0,"","","","",false,null,"",
                         "","","","", arrayListOf(),"", "")
         }
 
@@ -216,6 +216,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
                     val photo = Photo(image, dialogDescriptionEditText.text.toString())
                     property!!.photos.add(photo)
                     adapter.updateList(property!!.photos)
+                    property?.numberOfPhotos = property?.photos!!.size
                 }
             }
 

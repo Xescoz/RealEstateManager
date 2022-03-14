@@ -68,12 +68,15 @@ class PropertyMainActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK) {
             val value = it.data?.getParcelableArrayListExtra<Property>("ActivityResult")
 
+            Log.v("List Size Sortie",value?.size.toString())
+
             val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
 
             val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
 
             if (value != null) {
                 fragment.updateList(value)
+                Log.v("Ping","good")
             }
         }
     }

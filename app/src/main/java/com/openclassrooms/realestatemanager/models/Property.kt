@@ -17,6 +17,7 @@ data class Property(
         var price : Int,
         var picture : String,
         var surface : Int,
+        var numberOfPhotos: Int,
         var nbOfRooms : String,
         var nbOfBathrooms : String,
         var nbOfBedrooms : String,
