@@ -33,6 +33,11 @@ class PropertyMainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
+
+
+        val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
+
+        Log.v("fragment OnCreate",fragment.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -73,6 +78,14 @@ class PropertyMainActivity : AppCompatActivity() {
             val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
 
             val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
+
+            Log.v("fragment",fragment.toString())
+
+            //V/fragment OnCreate: PropertyListFragment{a797650} (aeecdd5c-dbea-4255-88f2-f9705dbb185e id=0x7f080159)
+
+            value?.forEach {
+                Log.v("value each",it.city)
+            }
 
             if (value != null) {
                 fragment.updateList(value)

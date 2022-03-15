@@ -11,6 +11,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.R
@@ -58,9 +61,7 @@ class PropertyListFragment : Fragment() {
 
         val recyclerView: RecyclerView = binding.itemList
 
-        // Leaving this not using view binding as it relies on if the view is visible the current
-        // layout configuration (layout, layout-sw600dp)
-        val itemDetailFragmentContainer: View? = view.findViewById(R.id.item_detail_nav_container)
+        Log.v("Ping fragment","onViewCreated")
 
         /** Click Listener to trigger navigation based on if you have
          * a single pane layout or two pane layout
@@ -72,57 +73,50 @@ class PropertyListFragment : Fragment() {
 
             val action = PropertyListFragmentDirections.showItemDetail().setProperty(item)
 
-            if (itemDetailFragmentContainer != null) {
-                itemDetailFragmentContainer.findNavController()
-                        .navigate(R.id.fragment_item_detail, bundle)
+            if (binding.itemDetailNavContainer != null) {
+                binding.itemDetailNavContainer?.findNavController()
+                        ?.navigate(R.id.fragment_item_detail, bundle)
             } else {
                 itemView.findNavController().navigate(action)
             }
         }
 
-        /**
-         * Context click listener to handle Right click events
-         * from mice and trackpad input to provide a more native
-         * experience on larger screen devices
-         */
-        val onContextClickListener = View.OnContextClickListener { v ->
-            val item = v.tag as Property
-            Toast.makeText(
-                    v.context,
-                    "Context click of item " + item.id,
-                    Toast.LENGTH_LONG
-            ).show()
-            true
-        }
 
-        setupRecyclerView(recyclerView, onClickListener, onContextClickListener)
+        setupRecyclerView(recyclerView, onClickListener)
     }
 
     private fun setupRecyclerView(
             recyclerView: RecyclerView,
-            onClickListener: View.OnClickListener,
-            onContextClickListener: View.OnContextClickListener
+            onClickListener: View.OnClickListener
     ) {
+        Log.v("Ping fragment","setupRecyclerView")
 
-        propertyViewModel.allProperty.observe(viewLifecycleOwner, { propertyList ->
+        adapter = PropertyListRecyclerViewAdapter(
+                onClickListener,
+                requireContext())
+        recyclerView.adapter = adapter
 
-            adapter = context?.let {
-                PropertyListRecyclerViewAdapter(
-                        propertyList,
-                        onClickListener,
-                        onContextClickListener,
-                        it.applicationContext
-                )
-            }!!
-            recyclerView.adapter = adapter
+        propertyViewModel.allProperty.observeOnce(viewLifecycleOwner, { propertyList ->
+
+            Log.v("Ping fragment","observe")
+            adapter.listProperty = propertyList
+
+        })
+    }
+
+    private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+        observe(lifecycleOwner, object : Observer<T> {
+            override fun onChanged(t: T?) {
+                observer.onChanged(t)
+                removeObserver(this)
+            }
         })
     }
 
     fun updateList(propertyList: ArrayList<Property>){
-        adapter.updateList(propertyList)
+        adapter.listProperty = propertyList
         Log.v("Ping Fragment","good")
         Log.v("List Size Fragment", propertyList.size.toString())
-        adapter.notifyDataSetChanged()
 
         Log.v("adapter size",adapter.itemCount.toString())
     }

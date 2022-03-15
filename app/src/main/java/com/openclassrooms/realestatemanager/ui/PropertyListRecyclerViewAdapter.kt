@@ -14,12 +14,17 @@ import com.openclassrooms.realestatemanager.models.Property
 import com.openclassrooms.realestatemanager.stringToBitMap
 
 class PropertyListRecyclerViewAdapter(
-        private var values: List<Property>,
         private val onClickListener: View.OnClickListener,
-        private val onContextClickListener: View.OnContextClickListener,
         private val context : Context
 ) :
         RecyclerView.Adapter<PropertyListRecyclerViewAdapter.ViewHolder>() {
+
+
+    var listProperty: List<Property> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -30,7 +35,10 @@ class PropertyListRecyclerViewAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+
+        val item = listProperty[position]
+        Log.v("Ping viewHolder",item.city)
+
         holder.binding.itemHousePrice.text = "$"+item.price.toString()
         holder.binding.itemHouseType.text = item.propertyType
         holder.binding.itemHouseCity.text = item.city
@@ -51,16 +59,10 @@ class PropertyListRecyclerViewAdapter(
         with(holder.itemView) {
             tag = item
             setOnClickListener(onClickListener)
-            setOnContextClickListener(onContextClickListener)
         }
     }
 
-    fun updateList(updatedList :List<Property>){
-        values = updatedList
-        Log.v("Ping adapter","good")
-    }
-
-    override fun getItemCount() = values.size
+    override fun getItemCount() = listProperty.size
 
     inner class ViewHolder(val binding: ItemHouseBinding) : RecyclerView.ViewHolder(binding.root)
 
