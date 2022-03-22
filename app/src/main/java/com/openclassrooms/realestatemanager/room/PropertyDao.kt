@@ -21,24 +21,13 @@ interface PropertyDao {
     @Update
     suspend fun updateProperty(property: Property)
 
-    @Query("SELECT * FROM property_table WHERE city = :city")
-    fun getPropertyWhereCity(city: String): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE pointOfInterest = :pointOfInterest")
-    fun getPropertyWherePointOfInterest(pointOfInterest: String): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE numberOfPhotos = :numberOfPhotos")
-    fun getPropertyWhereNumberOfPhotos(numberOfPhotos: Int): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE date = :date")
-    fun getPropertyWhereDate(date: String): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE dateOfSale = :dateOfSale")
-    fun getPropertyWhereDateOfSale(dateOfSale: String): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE surface BETWEEN :minSize AND :maxSize")
-    fun getPropertyWhereSizeBetween(minSize: Int, maxSize: Int): Flow<List<Property>>
-
-    @Query("SELECT * FROM property_table WHERE price BETWEEN :minPrice AND :maxPrice")
-    fun getPropertyWherePriceBetween(minPrice: Int, maxPrice: Int): Flow<List<Property>>
+    @Query("SELECT * FROM property_table " +
+            "WHERE city = :city " +
+            "AND numberOfPhotos = :numberOfPhotos " +
+            "AND pointOfInterest = :pointOfInterest " +
+            "AND date = :date " +
+            "AND dateOfSale = :dateOfSale " +
+            "AND price BETWEEN :minPrice AND :maxPrice " +
+            "AND surface BETWEEN :minSize AND :maxSize")
+    fun getPropertyMatch(city: String, numberOfPhotos: Int,pointOfInterest: String,date: String,dateOfSale: String,minPrice: Int, maxPrice: Int,minSize: Int, maxSize: Int): Flow<List<Property>>
 }

@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager.room
 
 import androidx.annotation.WorkerThread
-import com.openclassrooms.realestatemanager.models.Photo
 import com.openclassrooms.realestatemanager.models.Property
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.toList
 
 class PropertyRepository(private val propertyDao: PropertyDao) {
 
@@ -20,31 +18,8 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         propertyDao.insert(property)
     }
 
-    fun getPropertyWherePointOfInterest(pointOfInterest: String): Flow<List<Property>>{
-        return propertyDao.getPropertyWherePointOfInterest(pointOfInterest)
-    }
-
-    fun getPropertyWhereNumberOfPhotos(numberOfPhotos: Int): Flow<List<Property>>{
-        return propertyDao.getPropertyWhereNumberOfPhotos(numberOfPhotos)
-    }
-
-    fun getPropertyWhereCity(city: String):Flow<List<Property>> {
-        return propertyDao.getPropertyWhereCity(city)
-    }
-
-    fun getPropertyWhereDate(date: String): Flow<List<Property>>{
-        return propertyDao.getPropertyWhereDate(date)
-    }
-    fun getPropertyWhereDateOfSale(dateOfSale: String): Flow<List<Property>>{
-        return propertyDao.getPropertyWhereDateOfSale(dateOfSale)
-    }
-
-    fun getPropertyWhereSizeBetween(minSize: Int, maxSize: Int): Flow<List<Property>>{
-        return propertyDao.getPropertyWhereSizeBetween(minSize, maxSize)
-    }
-
-    fun getPropertyWherePriceBetween(minPrice: Int, maxPrice: Int): Flow<List<Property>>{
-        return propertyDao.getPropertyWherePriceBetween(minPrice, maxPrice)
+    fun getPropertyMatch(city: String, numberOfPhotos: Int, pointOfInterest: String, date: String, dateOfSale: String, minPrice: Int, maxPrice: Int, minSize: Int, maxSize: Int):Flow<List<Property>> {
+        return propertyDao.getPropertyMatch(city, numberOfPhotos,pointOfInterest,date,dateOfSale,minPrice, maxPrice,minSize, maxSize)
     }
 
 }

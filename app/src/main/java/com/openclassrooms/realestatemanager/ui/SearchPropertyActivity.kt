@@ -7,6 +7,7 @@ import android.util.Log
 
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivitySearchPropertyBinding
 import com.openclassrooms.realestatemanager.room.*
@@ -46,89 +47,46 @@ class SearchPropertyActivity : AppCompatActivity() {
     }
 
     private fun confirm(){
-        if(binding.cityEdit.text?.isNotEmpty() == true){
-            searchPropertyViewModel.getPropertyWhereCity(binding.cityEdit.text.toString()).observe(this, {propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    Log.v("City",binding.cityEdit.text.toString())
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val city :String = if(binding.cityEdit.text?.isNotEmpty() == true)
+            binding.cityEdit.text.toString()
+        else
+            "Paris"
 
-            })
-        }
-        if(binding.dateEdit.text?.isNotEmpty() == true){
-            searchPropertyViewModel.getPropertyWhereDate(binding.dateEdit.text.toString()).observe(this ,{propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    Log.v("Date",binding.dateEdit.text.toString())
-                    Log.v("List Size",propertyList.size.toString())
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val numberOfPhotos :Int = if(binding.photosEdit.text?.isNotEmpty() == true)
+            binding.photosEdit.text.toString().toInt()
+        else
+            0
 
-            })
-        }
-        if(binding.photosEdit.text?.isNotEmpty() == true){
-            searchPropertyViewModel.getPropertyWhereNumberOfPhotos(binding.photosEdit.text.toString().toInt()).observe(this ,{propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val pointOfInterest :String = if(binding.pointOfInterestEdit.text?.isNotEmpty() == true)
+            binding.pointOfInterestEdit.text.toString()
+        else
+            "Parc"
 
-            })
-        }
-        if(binding.dateOfSaleEdit.text?.isNotEmpty() == true){
-            searchPropertyViewModel.getPropertyWhereDateOfSale(binding.dateOfSaleEdit.text.toString()).observe(this ,{propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    Log.v("Date Of Sale",binding.dateOfSaleEdit.text.toString())
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val date :String = if(binding.dateEdit.text?.isNotEmpty() == true)
+            binding.dateEdit.text.toString()
+        else
+            "10/03/2022"
 
-            })
-        }
-        if(binding.pointOfInterestEdit.text?.isNotEmpty() == true){
-            searchPropertyViewModel.getPropertyWherePointOfInterest(binding.pointOfInterestEdit.text.toString()).observe(this ,{propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    Log.v("Point Of Interest",binding.pointOfInterestEdit.text.toString())
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val dateOfSale :String = if(binding.dateOfSaleEdit.text?.isNotEmpty() == true)
+            binding.dateOfSaleEdit.text.toString()
+        else
+            ""
+        val minPrice = binding.priceSlider.values[0].toInt()
+        val maxPrice = binding.priceSlider.values[1].toInt()
 
-            })
-        }
-        if (binding.priceSlider.values[0].toInt()!=0 || binding.priceSlider.values[1].toInt()!=1000000){
-            searchPropertyViewModel.getPropertyWherePriceBetween(binding.priceSlider.values[0].toInt(), binding.priceSlider.values[1].toInt()).observe(this ,{ propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        val minSize = binding.sizeSlider.values[0].toInt()
+        val maxSize = binding.sizeSlider.values[1].toInt()
 
-            })
-        }
-        if (binding.sizeSlider.values[0].toInt()!=0 || binding.sizeSlider.values[1].toInt()!=500){
-            searchPropertyViewModel.getPropertyWhereSizeBetween(binding.sizeSlider.values[0].toInt(), binding.sizeSlider.values[1].toInt()).observe(this ,{ propertyList->
-                if(propertyList!=null){
-                    val intent = Intent()
-                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        searchPropertyViewModel.getPropertyMatch(city,numberOfPhotos,pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
+            if(propertyList!=null){
+                val intent = Intent()
+                Log.v("City",binding.cityEdit.text.toString())
+                intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                setResult(RESULT_OK, intent)
+                finish()
+            }
 
-            })
-        }
-
+        })
 
     }
 

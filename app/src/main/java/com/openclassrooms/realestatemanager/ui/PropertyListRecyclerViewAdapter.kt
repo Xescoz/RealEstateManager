@@ -37,7 +37,7 @@ class PropertyListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = listProperty[position]
-        Log.v("Ping viewHolder",item.city)
+        Log.v("Ping viewHolder",item.price.toString())
 
         holder.binding.itemHousePrice.text = "$"+item.price.toString()
         holder.binding.itemHouseType.text = item.propertyType

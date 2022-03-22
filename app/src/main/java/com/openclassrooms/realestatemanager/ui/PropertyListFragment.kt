@@ -36,6 +36,8 @@ class PropertyListFragment : Fragment() {
 
     private lateinit var adapter: PropertyListRecyclerViewAdapter
 
+    private var isUpdate :Boolean = false
+
     private val propertyViewModel: PropertyViewModel by viewModels {
         PropertyViewModelFactory((activity?.application as PropertyApplication).propertyRepository,(activity?.application as PropertyApplication).agentRepository)
     }
@@ -96,12 +98,26 @@ class PropertyListFragment : Fragment() {
                 requireContext())
         recyclerView.adapter = adapter
 
-        propertyViewModel.allProperty.observeOnce(viewLifecycleOwner, { propertyList ->
+        /*propertyViewModel.getAllProperties().observeOnce(viewLifecycleOwner, { propertyList ->
 
-            Log.v("Ping fragment","observe")
             adapter.listProperty = propertyList
 
+        })*/
+
+
+
+        propertyViewModel.getAllProperties().observe(viewLifecycleOwner, { propertyList ->
+
+            Log.v("Ping fragment","observe")
+            if(!isUpdate)
+                adapter.listProperty = propertyList
+
         })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isUpdate = false
     }
 
     private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
@@ -114,6 +130,7 @@ class PropertyListFragment : Fragment() {
     }
 
     fun updateList(propertyList: ArrayList<Property>){
+        isUpdate = true
         adapter.listProperty = propertyList
         Log.v("Ping Fragment","good")
         Log.v("List Size Fragment", propertyList.size.toString())
