@@ -81,8 +81,6 @@ class PropertyMainActivity : AppCompatActivity() {
 
             Log.v("fragment",fragment.toString())
 
-            //V/fragment OnCreate: PropertyListFragment{a797650} (aeecdd5c-dbea-4255-88f2-f9705dbb185e id=0x7f080159)
-
             value?.forEach {
                 Log.v("value each",it.city)
             }

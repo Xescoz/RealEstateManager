@@ -98,14 +98,6 @@ class PropertyListFragment : Fragment() {
                 requireContext())
         recyclerView.adapter = adapter
 
-        /*propertyViewModel.getAllProperties().observeOnce(viewLifecycleOwner, { propertyList ->
-
-            adapter.listProperty = propertyList
-
-        })*/
-
-
-
         propertyViewModel.getAllProperties().observe(viewLifecycleOwner, { propertyList ->
 
             Log.v("Ping fragment","observe")
@@ -118,15 +110,6 @@ class PropertyListFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         isUpdate = false
-    }
-
-    private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
-        observe(lifecycleOwner, object : Observer<T> {
-            override fun onChanged(t: T?) {
-                observer.onChanged(t)
-                removeObserver(this)
-            }
-        })
     }
 
     fun updateList(propertyList: ArrayList<Property>){

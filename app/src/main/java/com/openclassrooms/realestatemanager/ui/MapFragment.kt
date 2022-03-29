@@ -91,18 +91,14 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
 
     private fun moveCameraToCurrentPosition(location: Location?){
 
-        val paris = LatLng(48.864716, 2.349014)
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(paris,13F))
-
-        /*
         if(location!=null){
             val userLatLng = LatLng(location.latitude,location.longitude)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,10F))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,13F))
         }
         else{
             val paris = LatLng(48.864716, 2.349014)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(paris,10F))
-        }*/
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(paris,13F))
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

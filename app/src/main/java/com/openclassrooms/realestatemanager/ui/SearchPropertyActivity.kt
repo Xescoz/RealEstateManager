@@ -7,7 +7,6 @@ import android.util.Log
 
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivitySearchPropertyBinding
 import com.openclassrooms.realestatemanager.room.*
@@ -50,22 +49,17 @@ class SearchPropertyActivity : AppCompatActivity() {
         val city :String = if(binding.cityEdit.text?.isNotEmpty() == true)
             binding.cityEdit.text.toString()
         else
-            "Paris"
-
-        val numberOfPhotos :Int = if(binding.photosEdit.text?.isNotEmpty() == true)
-            binding.photosEdit.text.toString().toInt()
-        else
-            0
+            ""
 
         val pointOfInterest :String = if(binding.pointOfInterestEdit.text?.isNotEmpty() == true)
             binding.pointOfInterestEdit.text.toString()
         else
-            "Parc"
+            ""
 
         val date :String = if(binding.dateEdit.text?.isNotEmpty() == true)
             binding.dateEdit.text.toString()
         else
-            "10/03/2022"
+            ""
 
         val dateOfSale :String = if(binding.dateOfSaleEdit.text?.isNotEmpty() == true)
             binding.dateOfSaleEdit.text.toString()
@@ -77,16 +71,32 @@ class SearchPropertyActivity : AppCompatActivity() {
         val minSize = binding.sizeSlider.values[0].toInt()
         val maxSize = binding.sizeSlider.values[1].toInt()
 
-        searchPropertyViewModel.getPropertyMatch(city,numberOfPhotos,pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
-            if(propertyList!=null){
-                val intent = Intent()
-                Log.v("City",binding.cityEdit.text.toString())
-                intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
-                setResult(RESULT_OK, intent)
-                finish()
-            }
 
-        })
+        if(binding.photosEdit.text?.isNotEmpty() == true)
+            searchPropertyViewModel.getPropertyMatchWithPhotos(city,binding.photosEdit.text.toString().toInt(),pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    Log.v("City",binding.cityEdit.text.toString())
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+
+        else
+            searchPropertyViewModel.getPropertyMatchWithoutPhotos(city,pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
+                if(propertyList!=null){
+                    val intent = Intent()
+                    Log.v("City",binding.cityEdit.text.toString())
+                    intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+
+            })
+
+
 
     }
 

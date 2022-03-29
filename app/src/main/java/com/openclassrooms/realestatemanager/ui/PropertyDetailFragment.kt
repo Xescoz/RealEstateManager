@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentItemDetailBinding
 import com.openclassrooms.realestatemanager.models.Property
+import kotlin.properties.Delegates
 
 
 /**
@@ -38,6 +39,8 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentItemDetailBinding? = null
 
     private val binding get() = _binding!!
+
+    private var isPhone = false
 
     private lateinit var mMap: GoogleMap
 
@@ -57,9 +60,11 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         propertyParcel = if(args.property!=null){
+            isPhone = true
             args.property!!
         }
         else{
+
             arguments?.getParcelable("item")
         }
 
@@ -137,12 +142,14 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+        if(isPhone)
+            (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
 
     override fun onStop() {
         super.onStop()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+        if(isPhone)
+            (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
 }
