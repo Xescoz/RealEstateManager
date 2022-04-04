@@ -116,7 +116,7 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
 
         binding.photosRecyclerview.adapter = context?.let {
             property?.let { property ->
-                PropertyDetailRecyclerViewAdapter(property.photos)
+                PropertyDetailRecyclerViewAdapter(property.photos!!)
             }
         }
     }

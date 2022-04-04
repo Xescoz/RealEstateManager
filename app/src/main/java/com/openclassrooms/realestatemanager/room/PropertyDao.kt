@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.room
 
+import android.database.Cursor
 import androidx.room.*
 import com.google.android.gms.maps.model.PointOfInterest
 import com.openclassrooms.realestatemanager.models.Photo
@@ -8,6 +9,22 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PropertyDao {
+
+    //Content Provider requests
+    @Query("SELECT * FROM property_table WHERE id = :id")
+    fun getPropertyWithCursor(id:Int): Cursor
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertContentProvider(property: Property) : Long
+
+    @Query("DELETE FROM property_table WHERE id =:id")
+    fun deleteProperty(id: Int) : Int
+
+    @Update
+    fun updatePropertyContentProvider(property: Property) : Int
+
+
+    //Property requests
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(property: Property)
