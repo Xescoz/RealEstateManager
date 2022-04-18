@@ -29,6 +29,7 @@ class PropertyDetailRecyclerViewAdapter(
         holder.binding.photoImage.setImageBitmap(photo.picture.stringToBitMap())
 
     }
+
     override fun getItemCount() = photos.size
 
     inner class ViewHolder(val binding: ItemPhotosBinding) : RecyclerView.ViewHolder(binding.root)

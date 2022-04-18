@@ -26,17 +26,17 @@ abstract class PropertyRoomDatabase : RoomDatabase() {
                     val propertyDao = database.propertyDao()
 
                     // Add sample words.
-                    var property = Property(0,"13/03/2022","Loft","School",420000,"",
-                            320,0,"5","1","2","A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.",false,"","Berlin",
-                            "9 rue Jean Daudin","France","5A","75000", arrayListOf(),"", "Bob KIRTH")
+                    var property = Property(0, "13/03/2022", "Loft", "School", 420000, "",
+                            320, 0, "5", "1", "2", "A white loft with a lot of luminosity. Two bedrooms and a lot of rooms. Kitchen integrated.", false, "", "Berlin",
+                            "9 rue Jean Daudin", "France", "5A", "75000", arrayListOf(), "", "Bob KIRTH")
                     propertyDao.insert(property)
-                    property = Property(1,"10/03/2022","House","Parc",580000,"",
-                            210,0,"8","2","3","Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.",false,"","Paris",
-                            "20 Rue Oudinot","France","","75000",arrayListOf(),"", "Jean FRUIT")
+                    property = Property(1, "10/03/2022", "House", "Parc", 580000, "",
+                            210, 0, "8", "2", "3", "Villu is a magnificent log clubhouse with a massive terrace and impressingly grand vestibule.", false, "", "Paris",
+                            "20 Rue Oudinot", "France", "", "75000", arrayListOf(), "", "Jean FRUIT")
                     propertyDao.insert(property)
-                    property = Property(2,"10/03/2022","House","Shop",340000,"",
-                            250,0,"8","2","3","This is a new description",true,"11/03/2022","Paris",
-                            "22 Rue François Bonvin","France","","75000",arrayListOf(),"", "Paul LIME")
+                    property = Property(2, "10/03/2022", "House", "Shop", 340000, "",
+                            250, 0, "8", "2", "3", "This is a new description", true, "11/03/2022", "Paris",
+                            "22 Rue François Bonvin", "France", "", "75000", arrayListOf(), "", "Paul LIME")
                     propertyDao.insert(property)
 
                     val agentDao = database.agentDao()

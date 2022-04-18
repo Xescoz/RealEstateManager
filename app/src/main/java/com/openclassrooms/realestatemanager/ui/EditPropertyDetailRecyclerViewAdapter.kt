@@ -11,7 +11,7 @@ import com.openclassrooms.realestatemanager.stringToBitMap
 
 
 class EditPropertyDetailRecyclerViewAdapter(
-        private var photos: List<Photo>,
+        private var photos: MutableList<Photo>?,
         private val onLongClickListener: View.OnLongClickListener
 ) :
         RecyclerView.Adapter<EditPropertyDetailRecyclerViewAdapter.ViewHolder>() {
@@ -25,7 +25,7 @@ class EditPropertyDetailRecyclerViewAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val photo = photos[position]
+        val photo = photos!![position]
 
         holder.binding.photoDescription.text = photo.description
         holder.binding.photoImage.setImageBitmap(photo.picture.stringToBitMap())
@@ -37,12 +37,13 @@ class EditPropertyDetailRecyclerViewAdapter(
 
     }
 
-    fun updateList(picturesList: List<Photo>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(picturesList: MutableList<Photo>?) {
         this.photos = picturesList
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = photos.size
+    override fun getItemCount() = photos!!.size
 
     inner class ViewHolder(val binding: ItemPhotosBinding) : RecyclerView.ViewHolder(binding.root)
 

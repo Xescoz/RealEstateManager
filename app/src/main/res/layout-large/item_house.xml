@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/item_house_image"
@@ -12,7 +12,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/house"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/on_sale"
@@ -20,24 +20,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_margin"
         android:layout_marginEnd="@dimen/activity_margin"
-        android:textStyle="bold"
-        android:textSize="12sp"
         android:text="On Sale"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/on_sale_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="8sp"
-        android:text="Since"
         android:layout_marginEnd="@dimen/activity_margin"
+        android:text="Since"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/on_sale"
+        android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_sale"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -48,23 +48,23 @@
         android:layout_marginTop="@dimen/activity_margin"
         android:text="Type of House"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:textSize="11sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/item_house_image"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/item_house_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/text_margin"
         android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/text_margin"
         android:text="City"
-        android:textSize="11sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/item_house_type"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@id/item_house_image"
+        app:layout_constraintTop_toBottomOf="@id/item_house_type"
         tools:ignore="SmallSp" />
 
     <TextView
@@ -75,8 +75,8 @@
         android:layout_marginTop="@dimen/text_margin"
         android:text="Price"
         android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/item_house_city"
-        app:layout_constraintStart_toEndOf="@id/item_house_image"/>
+        app:layout_constraintStart_toEndOf="@id/item_house_image"
+        app:layout_constraintTop_toBottomOf="@id/item_house_city" />
 
     <LinearLayout
         android:layout_width="match_parent"

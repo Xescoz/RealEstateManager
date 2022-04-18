@@ -32,15 +32,15 @@ import com.openclassrooms.realestatemanager.room.PropertyViewModelFactory
 import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.EasyPermissions
 
-class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private val propertyViewModel: PropertyViewModel by viewModels {
-        PropertyViewModelFactory((activity?.application as PropertyApplication).propertyRepository,(activity?.application as PropertyApplication).agentRepository)
+        PropertyViewModelFactory((activity?.application as PropertyApplication).propertyRepository, (activity?.application as PropertyApplication).agentRepository)
     }
 
 
     private var mMap: GoogleMap? = null
-    private var location : Location? = null
+    private var location: Location? = null
     private var _binding: FragmentMapBinding? = null
 
     private val binding get() = _binding!!
@@ -89,18 +89,18 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
         mMap!!.setOnMarkerClickListener(this)
     }
 
-    private fun moveCameraToCurrentPosition(location: Location?){
+    private fun moveCameraToCurrentPosition(location: Location?) {
 
-        if(location!=null){
-            val userLatLng = LatLng(location.latitude,location.longitude)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,13F))
-        }
-        else{
+        if (location != null) {
+            val userLatLng = LatLng(location.latitude, location.longitude)
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 13F))
+        } else {
             val paris = LatLng(48.864716, 2.349014)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(paris,13F))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(paris, 13F))
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -123,25 +123,25 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
     }
 
     @SuppressLint("MissingPermission")
-    private fun getDeviceLocation(){
+    private fun getDeviceLocation() {
         fusedLocationClient.lastLocation
-                .addOnSuccessListener { location : Location? ->
+                .addOnSuccessListener { location: Location? ->
                     this.location = location
-                    if (mMap!=null)
+                    if (mMap != null)
                         moveCameraToCurrentPosition(location)
                 }
     }
 
-    private fun createMarkers(){
-        propertyViewModel.allProperty.observe(this, { propertyList ->
+    private fun createMarkers() {
+        propertyViewModel.allProperty.observe(this) { propertyList ->
             var marker: Marker?
-            for(property : Property in propertyList){
-                val propertyLocation = getLatLngFromAddress(property.address+", "+property.city)
+            for (property: Property in propertyList) {
+                val propertyLocation = getLatLngFromAddress(property.address + ", " + property.city)
                 marker = mMap!!.addMarker(MarkerOptions().position(propertyLocation))
                 marker!!.tag = property
             }
 
-        })
+        }
     }
 
     private fun getLatLngFromAddress(strAddress: String): LatLng {

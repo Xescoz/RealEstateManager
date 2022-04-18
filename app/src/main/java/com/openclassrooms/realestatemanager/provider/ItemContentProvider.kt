@@ -22,7 +22,7 @@ class ItemContentProvider : ContentProvider() {
     override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor {
         if (context != null) {
             val userId = ContentUris.parseId(uri).toInt()
-            val cursor: Cursor = PropertyRoomDatabase.getDatabase(context!!,applicationScope).propertyDao().getPropertyWithCursor(userId)
+            val cursor: Cursor = PropertyRoomDatabase.getDatabase(context!!, applicationScope).propertyDao().getPropertyWithCursor(userId)
             cursor.setNotificationUri(context!!.contentResolver, uri)
             return cursor
         }
@@ -35,7 +35,7 @@ class ItemContentProvider : ContentProvider() {
 
     override fun insert(uri: Uri, contentValues: ContentValues?): Uri {
         if (context != null && contentValues != null) {
-            val id: Long = PropertyRoomDatabase.getDatabase(context!!,applicationScope).propertyDao().insertContentProvider(Property.fromContentValues(contentValues))
+            val id: Long = PropertyRoomDatabase.getDatabase(context!!, applicationScope).propertyDao().insertContentProvider(Property.fromContentValues(contentValues))
             if (id != 0L) {
                 context!!.contentResolver.notifyChange(uri, null)
                 return ContentUris.withAppendedId(uri, id)
@@ -46,7 +46,7 @@ class ItemContentProvider : ContentProvider() {
 
     override fun delete(uri: Uri, s: String?, strings: Array<String>?): Int {
         if (context != null) {
-            val count: Int = PropertyRoomDatabase.getDatabase(context!!,applicationScope).propertyDao().deleteProperty(ContentUris.parseId(uri).toInt())
+            val count: Int = PropertyRoomDatabase.getDatabase(context!!, applicationScope).propertyDao().deleteProperty(ContentUris.parseId(uri).toInt())
             context!!.contentResolver.notifyChange(uri, null)
             return count
         }
@@ -55,7 +55,7 @@ class ItemContentProvider : ContentProvider() {
 
     override fun update(uri: Uri, contentValues: ContentValues?, s: String?, strings: Array<String>?): Int {
         if (context != null && contentValues != null) {
-            val count: Int = PropertyRoomDatabase.getDatabase(context!!,applicationScope).propertyDao().updatePropertyContentProvider(Property.fromContentValues(contentValues))
+            val count: Int = PropertyRoomDatabase.getDatabase(context!!, applicationScope).propertyDao().updatePropertyContentProvider(Property.fromContentValues(contentValues))
             context!!.contentResolver.notifyChange(uri, null)
             return count
         }
@@ -65,6 +65,5 @@ class ItemContentProvider : ContentProvider() {
     companion object {
         const val AUTHORITY = "com.openclassrooms.realestatemanager.provider"
         const val TABLE_NAME = "property_table"
-        val URI_ITEM = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
     }
 }

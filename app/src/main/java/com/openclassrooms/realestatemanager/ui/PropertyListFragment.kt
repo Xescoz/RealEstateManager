@@ -98,13 +98,13 @@ class PropertyListFragment : Fragment() {
                 requireContext())
         recyclerView.adapter = adapter
 
-        propertyViewModel.getAllProperties().observe(viewLifecycleOwner, { propertyList ->
+        propertyViewModel.getAllProperties().observe(viewLifecycleOwner) { propertyList ->
 
-            Log.v("Ping fragment","observe")
-            if(!isUpdate)
+            Log.v("Ping fragment", "observe")
+            if (!isUpdate)
                 adapter.listProperty = propertyList
 
-        })
+        }
     }
 
     override fun onPause() {

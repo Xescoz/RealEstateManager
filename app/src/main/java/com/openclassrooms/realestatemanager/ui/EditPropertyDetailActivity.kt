@@ -29,7 +29,7 @@ import java.time.LocalDate
 class EditPropertyDetailActivity : AppCompatActivity() {
 
     private val propertyViewModel: PropertyViewModel by viewModels {
-        PropertyViewModelFactory((this.application as PropertyApplication).propertyRepository,(this.application as PropertyApplication).agentRepository)
+        PropertyViewModelFactory((this.application as PropertyApplication).propertyRepository, (this.application as PropertyApplication).agentRepository)
     }
 
     private lateinit var binding: ActivityEditPropertyDetailBinding
@@ -52,16 +52,17 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
         isCreate = intent.getBooleanExtra("isCreate", false)
 
-        if(isCreate) {
-            property = Property(null,"","","",0,"",
-                        0,0,"","","","",false,null,"",
-                        "","","","", arrayListOf(),"", "")
+        if (isCreate) {
+            property = Property(null, "", "", "", 0, "",
+                    0, 0, "", "", "", "", false, null, "",
+                    "", "", "", "", arrayListOf(), "", "")
         }
 
         init()
     }
 
-    private fun init(){
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun init() {
 
         val onLongClickListener = View.OnLongClickListener { itemView ->
             val position = itemView.tag as Int
@@ -94,11 +95,10 @@ class EditPropertyDetailActivity : AppCompatActivity() {
             true
         }
 
-        if (property!!.sold){
+        if (property!!.sold) {
             binding.switchSold.isClickable = false
             binding.switchSold.isChecked = true
-        }
-        else{
+        } else {
             binding.switchSold.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     property!!.sold = true
@@ -113,10 +113,10 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
 
 
-        adapter= EditPropertyDetailRecyclerViewAdapter(property!!.photos,onLongClickListener)
+        adapter = EditPropertyDetailRecyclerViewAdapter(property!!.photos, onLongClickListener)
         binding.photosRecyclerview.adapter = adapter
 
-        binding.buttonAddPhotos.setOnClickListener{
+        binding.buttonAddPhotos.setOnClickListener {
             isMainPicture = false
             createCameraGalleryDialog()
         }
@@ -126,7 +126,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateProperty(){
+    private fun updateProperty() {
         val propertyUpdated = property
         propertyUpdated!!.description = binding.descriptionEdit.text.toString()
         propertyUpdated.surface = binding.surfaceEdit.text.toString().toInt()
@@ -144,7 +144,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
         if (isCreate)
             propertyViewModel.insert(propertyUpdated)
-        else{
+        else {
             val intent = Intent()
             intent.putExtra("ActivityResult", propertyUpdated)
             setResult(RESULT_OK, intent)
@@ -155,14 +155,14 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun createDeleteDialog(position: Int){
+    private fun createDeleteDialog(position: Int) {
 
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
                 setPositiveButton(R.string.confirm
                 ) { _, _ ->
-                    property!!.photos.removeAt(position)
+                    property!!.photos!!.removeAt(position)
                     adapter.updateList(property!!.photos)
                 }
                 setNegativeButton(R.string.cancel
@@ -177,7 +177,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
     }
 
 
-    private fun createCameraGalleryDialog(){
+    private fun createCameraGalleryDialog() {
 
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
@@ -201,10 +201,10 @@ class EditPropertyDetailActivity : AppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    private fun createDescriptionDialog(image:String){
+    private fun createDescriptionDialog(image: String) {
         val inflater = this.layoutInflater
-        val inflate = inflater.inflate(R.layout.description_dialog,null)
-        val dialogDescriptionEditText:TextInputEditText = inflate.findViewById(R.id.description_dialog_edit)
+        val inflate = inflater.inflate(R.layout.description_dialog, null)
+        val dialogDescriptionEditText: TextInputEditText = inflate.findViewById(R.id.description_dialog_edit)
 
         val alertDialog: AlertDialog = this.let {
             val builder = AlertDialog.Builder(it)
@@ -214,7 +214,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
                 setPositiveButton(R.string.confirm
                 ) { _, _ ->
                     val photo = Photo(image, dialogDescriptionEditText.text.toString())
-                    property!!.photos.add(photo)
+                    property!!.photos!!.add(photo)
                     adapter.updateList(property!!.photos)
                     property?.numberOfPhotos = property?.photos!!.size
                 }
@@ -227,19 +227,18 @@ class EditPropertyDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun editPicture(bitmap: Bitmap){
-        if (isMainPicture){
+    private fun editPicture(bitmap: Bitmap) {
+        if (isMainPicture) {
             binding.pictureProperty.setImageBitmap(bitmap)
             property!!.picture = bitmapToString(bitmap)
-        }
-        else
+        } else
             createDescriptionDialog(bitmapToString(bitmap))
     }
 
     private var resultLauncherCamera = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
-            val bitmap:Bitmap = data!!.extras!!.get("data") as Bitmap
+            val bitmap: Bitmap = data!!.extras!!.get("data") as Bitmap
             editPicture(bitmap)
         }
     }

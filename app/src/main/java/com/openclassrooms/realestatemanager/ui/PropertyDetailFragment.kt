@@ -59,11 +59,10 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        propertyParcel = if(args.property!=null){
+        propertyParcel = if (args.property != null) {
             isPhone = true
             args.property!!
-        }
-        else{
+        } else {
 
             arguments?.getParcelable("item")
         }
@@ -74,14 +73,13 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         initView(propertyParcel)
 
 
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         var propertyLocation = LatLng(48.864716, 2.349014)
-        if(propertyParcel!=null){
-            propertyLocation = getLatLngFromAddress(propertyParcel?.address+", "+propertyParcel?.city)
+        if (propertyParcel != null) {
+            propertyLocation = getLatLngFromAddress(propertyParcel?.address + ", " + propertyParcel?.city)
         }
 
         mMap.addMarker(MarkerOptions().position(propertyLocation))
@@ -93,10 +91,10 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         _binding = null
     }
 
-    private fun initView(property: Property?){
+    private fun initView(property: Property?) {
         binding.descriptionContent.text = property?.description
 
-        binding.surfaceContent.text = resources.getString(R.string.surface_string,property?.surface)
+        binding.surfaceContent.text = resources.getString(R.string.surface_string, property?.surface)
         binding.numberRoomsContent.text = property?.nbOfRooms.toString()
         binding.numberBedroomContent.text = property?.nbOfBedrooms.toString()
         binding.numberBathroomContent.text = property?.nbOfBathrooms.toString()
@@ -107,9 +105,9 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
         binding.locationCountryCode.text = property?.postcode
         binding.locationCountry.text = property?.country
 
-        binding.buttonEditDetail.setOnClickListener{
-            val editPropertyIntent = Intent(context,EditPropertyDetailActivity::class.java)
-            editPropertyIntent.putExtra("Property",property)
+        binding.buttonEditDetail.setOnClickListener {
+            val editPropertyIntent = Intent(context, EditPropertyDetailActivity::class.java)
+            editPropertyIntent.putExtra("Property", property)
 
             editPropertyResultLauncher.launch(editPropertyIntent)
         }
@@ -142,13 +140,13 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
 
     override fun onResume() {
         super.onResume()
-        if(isPhone)
+        if (isPhone)
             (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
 
     override fun onStop() {
         super.onStop()
-        if(isPhone)
+        if (isPhone)
             (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 

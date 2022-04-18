@@ -37,7 +37,7 @@ class PropertyMainActivity : AppCompatActivity() {
 
         val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
 
-        Log.v("fragment OnCreate",fragment.toString())
+        Log.v("fragment OnCreate", fragment.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,19 +50,24 @@ class PropertyMainActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             R.id.add_property_button -> {
-                val createPropertyIntent = Intent(this,EditPropertyDetailActivity::class.java)
-                createPropertyIntent.putExtra("isCreate",true)
+                val createPropertyIntent = Intent(this, EditPropertyDetailActivity::class.java)
+                createPropertyIntent.putExtra("isCreate", true)
                 startActivity(createPropertyIntent)
                 true
             }
             R.id.show_search_button -> {
-                val searchPropertyIntent = Intent(this,SearchPropertyActivity::class.java)
+                val searchPropertyIntent = Intent(this, SearchPropertyActivity::class.java)
                 searchPropertyActivityResultLauncher.launch(searchPropertyIntent)
                 true
             }
             R.id.show_map_button -> {
                 val action = PropertyListFragmentDirections.showMapFragment()
                 binding.navHostFragmentItemDetail.findNavController().navigate(action)
+                true
+            }
+            R.id.loan_simulator_button -> {
+                val intent = Intent(this, SimulatorActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -73,21 +78,21 @@ class PropertyMainActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK) {
             val value = it.data?.getParcelableArrayListExtra<Property>("ActivityResult")
 
-            Log.v("List Size Sortie",value?.size.toString())
+            Log.v("List Size Sortie", value?.size.toString())
 
             val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
 
             val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
 
-            Log.v("fragment",fragment.toString())
+            Log.v("fragment", fragment.toString())
 
             value?.forEach {
-                Log.v("value each",it.city)
+                Log.v("value each", it.city)
             }
 
             if (value != null) {
                 fragment.updateList(value)
-                Log.v("Ping","good")
+                Log.v("Ping", "good")
             }
         }
     }

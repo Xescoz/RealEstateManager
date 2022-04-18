@@ -20,11 +20,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.SimulatorActivity"
+            android:exported="false" />
 
         <provider
             android:name=".provider.ItemContentProvider"
             android:authorities="com.openclassrooms.savemytrip.provider"
-            android:exported="true"/>
+            android:exported="true" />
 
         <activity android:name=".ui.SearchPropertyActivity" />
         <!--

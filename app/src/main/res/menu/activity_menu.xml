@@ -5,15 +5,20 @@
         android:id="@+id/show_search_button"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/show_search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/show_map_button"
         android:icon="@drawable/ic_baseline_map_24"
         android:title="@string/show_map"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/add_property_button"
         android:icon="@drawable/ic_baseline_add_property"
         android:title="@string/add_property"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/loan_simulator_button"
+        android:icon="@drawable/ic_baseline_add_property"
+        android:title="@string/loan_simulator"
+        app:showAsAction="ifRoom" />
 </menu>

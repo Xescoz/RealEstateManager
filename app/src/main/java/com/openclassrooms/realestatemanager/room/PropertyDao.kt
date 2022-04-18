@@ -12,16 +12,16 @@ interface PropertyDao {
 
     //Content Provider requests
     @Query("SELECT * FROM property_table WHERE id = :id")
-    fun getPropertyWithCursor(id:Int): Cursor
+    fun getPropertyWithCursor(id: Int): Cursor
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertContentProvider(property: Property) : Long
+    fun insertContentProvider(property: Property): Long
 
     @Query("DELETE FROM property_table WHERE id =:id")
-    fun deleteProperty(id: Int) : Int
+    fun deleteProperty(id: Int): Int
 
     @Update
-    fun updatePropertyContentProvider(property: Property) : Int
+    fun updatePropertyContentProvider(property: Property): Int
 
 
     //Property requests

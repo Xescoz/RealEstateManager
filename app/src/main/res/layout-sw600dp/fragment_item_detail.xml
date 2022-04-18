@@ -12,15 +12,15 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button_edit_detail"
-            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_edit_24"
             android:layout_marginStart="@dimen/text_margin"
             android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="@id/media_text"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_edit_24"
             app:layout_constraintBottom_toBottomOf="@id/media_text"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/media_text" />
 
         <TextView
             android:id="@+id/media_text"
@@ -227,20 +227,20 @@
             app:layout_constraintTop_toBottomOf="@id/location_country_code" />
 
         <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:id="@+id/map_image"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
+            android:clickable="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/location_title"
             map:cameraZoom="13"
+            map:liteMode="true"
             map:mapType="normal"
-            map:uiZoomControls="false"
             map:uiCompass="false"
-            android:clickable="false"
-            map:liteMode="true" />
+            map:uiZoomControls="false" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

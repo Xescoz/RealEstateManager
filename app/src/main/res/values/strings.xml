@@ -42,4 +42,10 @@
     <string name="search_property">Search Property</string>
     <string name="date_picker">%1$s/%2$s/%3$d</string>
     <string name="surface_string">%1$d m²</string>
+    <string name="loan_amount">Amount of your loan</string>
+    <string name="loan_duration">Duration of your loan</string>
+    <string name="interest_rate">Interest rate</string>
+    <string name="loan_simulator">Loan simulator</string>
+    <string name="interest_value">Interest : 1.25%</string>
+    <string name="loan_string_result">Your monthly payment will be %1$s$ per month</string>
 </resources>

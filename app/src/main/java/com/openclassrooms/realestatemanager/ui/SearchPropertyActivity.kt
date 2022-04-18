@@ -32,11 +32,11 @@ class SearchPropertyActivity : AppCompatActivity() {
         init()
     }
 
-    private fun init(){
-        binding.dateOfSaleEdit.setOnClickListener{
+    private fun init() {
+        binding.dateOfSaleEdit.setOnClickListener {
             showDateOfSalePickerDialog()
         }
-        binding.dateEdit.setOnClickListener{
+        binding.dateEdit.setOnClickListener {
             showDatePickerDialog()
         }
 
@@ -45,23 +45,23 @@ class SearchPropertyActivity : AppCompatActivity() {
         }
     }
 
-    private fun confirm(){
-        val city :String = if(binding.cityEdit.text?.isNotEmpty() == true)
+    private fun confirm() {
+        val city: String = if (binding.cityEdit.text?.isNotEmpty() == true)
             binding.cityEdit.text.toString()
         else
             ""
 
-        val pointOfInterest :String = if(binding.pointOfInterestEdit.text?.isNotEmpty() == true)
+        val pointOfInterest: String = if (binding.pointOfInterestEdit.text?.isNotEmpty() == true)
             binding.pointOfInterestEdit.text.toString()
         else
             ""
 
-        val date :String = if(binding.dateEdit.text?.isNotEmpty() == true)
+        val date: String = if (binding.dateEdit.text?.isNotEmpty() == true)
             binding.dateEdit.text.toString()
         else
             ""
 
-        val dateOfSale :String = if(binding.dateOfSaleEdit.text?.isNotEmpty() == true)
+        val dateOfSale: String = if (binding.dateOfSaleEdit.text?.isNotEmpty() == true)
             binding.dateOfSaleEdit.text.toString()
         else
             ""
@@ -72,45 +72,43 @@ class SearchPropertyActivity : AppCompatActivity() {
         val maxSize = binding.sizeSlider.values[1].toInt()
 
 
-        if(binding.photosEdit.text?.isNotEmpty() == true)
-            searchPropertyViewModel.getPropertyMatchWithPhotos(city,binding.photosEdit.text.toString().toInt(),pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
-                if(propertyList!=null){
+        if (binding.photosEdit.text?.isNotEmpty() == true)
+            searchPropertyViewModel.getPropertyMatchWithPhotos(city, binding.photosEdit.text.toString().toInt(), pointOfInterest, date, dateOfSale, minPrice, maxPrice, minSize, maxSize).observe(this) { propertyList ->
+                if (propertyList != null) {
                     val intent = Intent()
-                    Log.v("City",binding.cityEdit.text.toString())
+                    Log.v("City", binding.cityEdit.text.toString())
                     intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
                     setResult(RESULT_OK, intent)
                     finish()
                 }
 
-            })
-
+            }
         else
-            searchPropertyViewModel.getPropertyMatchWithoutPhotos(city,pointOfInterest,date,dateOfSale,minPrice,maxPrice,minSize,maxSize).observe(this, { propertyList->
-                if(propertyList!=null){
+            searchPropertyViewModel.getPropertyMatchWithoutPhotos(city, pointOfInterest, date, dateOfSale, minPrice, maxPrice, minSize, maxSize).observe(this) { propertyList ->
+                if (propertyList != null) {
                     val intent = Intent()
-                    Log.v("City",binding.cityEdit.text.toString())
+                    Log.v("City", binding.cityEdit.text.toString())
                     intent.putParcelableArrayListExtra("ActivityResult", propertyList.toArrayList())
                     setResult(RESULT_OK, intent)
                     finish()
                 }
 
-            })
-
+            }
 
 
     }
 
-    private fun <T> List<T>.toArrayList(): ArrayList<T>{
+    private fun <T> List<T>.toArrayList(): ArrayList<T> {
         return ArrayList(this)
     }
 
 
     private fun showDatePickerDialog() {
-        DatePickerDialog(this,datePicker,year,month,day).show()
+        DatePickerDialog(this, datePicker, year, month, day).show()
     }
 
     private fun showDateOfSalePickerDialog() {
-        DatePickerDialog(this,dateOfSalePicker,year,month,day).show()
+        DatePickerDialog(this, dateOfSalePicker, year, month, day).show()
     }
 
     private val datePicker = DatePickerDialog.OnDateSetListener { _, year, monthData, dayData ->

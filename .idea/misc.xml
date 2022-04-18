@@ -3,7 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout-large/item_house.xml" value="0.13465952563121653" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout-sw600dp/fragment_item_detail.xml" value="0.13465952563121653" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout-sw600dp/fragment_item_list.xml" value="0.13465952563121653" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/activity_edit_property_detail.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/activity_main_propertyl.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/activity_search_property.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/activity_simulator.xml" value="0.36666666666666664" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/description_dialog.xml" value="0.18885869565217392" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/fragment_item_detail.xml" value="0.17831813576494426" />
         <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/fragment_item_list.xml" value="0.12314814814814815" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/fragment_map.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/item_house.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/layout/item_photos.xml" value="0.17831813576494426" />
+        <entry key="..\:/Document/Openclassroom/Projet 9/RealEstateManager/app/src/main/res/menu/activity_menu.xml" value="0.21770833333333334" />
       </map>
     </option>
   </component>

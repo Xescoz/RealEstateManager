@@ -15,12 +15,13 @@ import com.openclassrooms.realestatemanager.stringToBitMap
 
 class PropertyListRecyclerViewAdapter(
         private val onClickListener: View.OnClickListener,
-        private val context : Context
+        private val context: Context
 ) :
         RecyclerView.Adapter<PropertyListRecyclerViewAdapter.ViewHolder>() {
 
 
     var listProperty: List<Property> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -37,20 +38,19 @@ class PropertyListRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = listProperty[position]
-        Log.v("Ping viewHolder",item.price.toString())
+        Log.v("Ping viewHolder", item.price.toString())
 
-        holder.binding.itemHousePrice.text = "$"+item.price.toString()
+        holder.binding.itemHousePrice.text = "$" + item.price.toString()
         holder.binding.itemHouseType.text = item.propertyType
         holder.binding.itemHouseCity.text = item.city
 
-        if(item.sold){
+        if (item.sold) {
             holder.binding.onSale.text = "Sold"
-            holder.binding.onSale.setTextColor(ContextCompat.getColor(context,R.color.red))
+            holder.binding.onSale.setTextColor(ContextCompat.getColor(context, R.color.red))
             holder.binding.onSaleDate.text = "Since " + item.dateOfSale
-        }
-        else {
+        } else {
             holder.binding.onSale.text = "On Sale"
-            holder.binding.onSale.setTextColor(ContextCompat.getColor(context,R.color.green))
+            holder.binding.onSale.setTextColor(ContextCompat.getColor(context, R.color.green))
             holder.binding.onSaleDate.text = "Since " + item.date
         }
 

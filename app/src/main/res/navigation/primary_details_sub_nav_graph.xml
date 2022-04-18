@@ -11,9 +11,9 @@
         tools:layout="@layout/fragment_item_detail">
         <argument
             android:name="property"
+            android:defaultValue="@null"
             app:argType="com.openclassrooms.realestatemanager.models.Property"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
 
 </navigation>

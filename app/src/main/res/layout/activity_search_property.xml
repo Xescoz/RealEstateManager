@@ -8,67 +8,67 @@
 
     <TextView
         android:id="@+id/search_property_text"
+        style="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/textAppearanceLarge"
-        android:text="@string/search_property"
         android:layout_marginTop="@dimen/text_margin"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/search_property"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/price_text"
+        style="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price"
         android:layout_marginStart="@dimen/text_margin"
-        style="?android:attr/textAppearanceLarge"
+        android:text="@string/price"
+        app:layout_constraintBottom_toBottomOf="@id/price_slider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/price_slider"
-        app:layout_constraintBottom_toBottomOf="@id/price_slider"/>
+        app:layout_constraintTop_toTopOf="@id/price_slider" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/price_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:stepSize="50000.0"
         android:valueFrom="0.0"
         android:valueTo="1000000.0"
-        android:stepSize="50000.0"
-        app:values="@array/initial_price_slider_values"
-        app:layout_constraintStart_toEndOf="@id/price_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/point_of_interest_input"/>
+        app:layout_constraintStart_toEndOf="@id/price_text"
+        app:layout_constraintTop_toBottomOf="@id/point_of_interest_input"
+        app:values="@array/initial_price_slider_values" />
 
     <TextView
         android:id="@+id/size_text"
+        style="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/size"
         android:layout_marginStart="@dimen/text_margin"
-        style="?android:attr/textAppearanceLarge"
+        android:text="@string/size"
+        app:layout_constraintBottom_toBottomOf="@id/size_slider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/size_slider"
-        app:layout_constraintBottom_toBottomOf="@id/size_slider"/>
+        app:layout_constraintTop_toTopOf="@id/size_slider" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/size_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="@dimen/text_margin"
+        android:layout_marginEnd="@dimen/text_margin"
+        android:stepSize="10.0"
         android:valueFrom="0.0"
         android:valueTo="500.0"
-        android:stepSize="10.0"
-        app:values="@array/initial_size_slider_values"
-        app:layout_constraintStart_toEndOf="@id/price_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_slider"/>
+        app:layout_constraintStart_toEndOf="@id/price_text"
+        app:layout_constraintTop_toBottomOf="@id/price_slider"
+        app:values="@array/initial_size_slider_values" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/city_input"
@@ -76,17 +76,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_property_text" >
+        app:layout_constraintTop_toBottomOf="@id/search_property_text">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/city_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/city"
-            android:inputType="text"/>
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -95,17 +96,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/city_input" >
+        app:layout_constraintTop_toBottomOf="@id/city_input">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/photos_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/number_of_photos"
-            android:inputType="number"/>
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -114,17 +116,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/photos_input" >
+        app:layout_constraintTop_toBottomOf="@id/photos_input">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/date_for_range_from_today"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:hint="@string/date_for_range_from_today" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -133,17 +136,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_input" >
+        app:layout_constraintTop_toBottomOf="@id/date_input">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/date_of_sale_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/date_of_sale_for_range_from_today"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:hint="@string/date_of_sale_for_range_from_today" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -152,11 +156,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_margin"
-        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/text_margin"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_of_sale_input" >
+        app:layout_constraintTop_toBottomOf="@id/date_of_sale_input">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/point_of_interest_edit"
             android:layout_width="match_parent"
@@ -173,9 +178,9 @@
         android:layout_marginBottom="16dp"
         android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/size_slider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/size_slider" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
 
     val allProperty: Flow<List<Property>> = propertyDao.getAllProperty()
 
-    suspend fun updateProperty(property: Property){
+    suspend fun updateProperty(property: Property) {
         propertyDao.updateProperty(property)
     }
 
@@ -18,12 +18,12 @@ class PropertyRepository(private val propertyDao: PropertyDao) {
         propertyDao.insert(property)
     }
 
-    fun getPropertyMatchWithPhotos(city: String, numberOfPhotos: Int, pointOfInterest: String, date: String, dateOfSale: String, minPrice: Int, maxPrice: Int, minSize: Int, maxSize: Int):Flow<List<Property>> {
-        return propertyDao.getPropertyMatchWithPhotos(city, numberOfPhotos,pointOfInterest,date,dateOfSale,minPrice, maxPrice,minSize, maxSize)
+    fun getPropertyMatchWithPhotos(city: String, numberOfPhotos: Int, pointOfInterest: String, date: String, dateOfSale: String, minPrice: Int, maxPrice: Int, minSize: Int, maxSize: Int): Flow<List<Property>> {
+        return propertyDao.getPropertyMatchWithPhotos(city, numberOfPhotos, pointOfInterest, date, dateOfSale, minPrice, maxPrice, minSize, maxSize)
     }
 
-    fun getPropertyMatchWithoutPhotos(city: String, pointOfInterest: String, date: String, dateOfSale: String, minPrice: Int, maxPrice: Int, minSize: Int, maxSize: Int):Flow<List<Property>> {
-        return propertyDao.getPropertyMatchWithoutPhotos(city,pointOfInterest,date,dateOfSale,minPrice, maxPrice,minSize, maxSize)
+    fun getPropertyMatchWithoutPhotos(city: String, pointOfInterest: String, date: String, dateOfSale: String, minPrice: Int, maxPrice: Int, minSize: Int, maxSize: Int): Flow<List<Property>> {
+        return propertyDao.getPropertyMatchWithoutPhotos(city, pointOfInterest, date, dateOfSale, minPrice, maxPrice, minSize, maxSize)
     }
 
 }

@@ -8,4 +8,4 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "agent_table")
 class Agent(@PrimaryKey
-        var name: String) : Parcelable
+            var name: String) : Parcelable

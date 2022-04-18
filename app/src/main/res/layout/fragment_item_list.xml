@@ -14,8 +14,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context="com.openclassrooms.realestatemanager.ui.PropertyMainActivity"
-        tools:listitem="@layout/item_house"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:listitem="@layout/item_house" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

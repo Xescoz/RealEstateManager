@@ -13,14 +13,14 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/button_add_photos"
-            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_to_photos_24"
             android:layout_marginStart="@dimen/text_margin"
-            app:layout_constraintTop_toTopOf="@id/media_text"
+            android:background="@color/white"
+            android:src="@drawable/ic_baseline_add_to_photos_24"
             app:layout_constraintBottom_toBottomOf="@id/media_text"
-            app:layout_constraintStart_toEndOf="@id/media_text"/>
+            app:layout_constraintStart_toEndOf="@id/media_text"
+            app:layout_constraintTop_toTopOf="@id/media_text" />
 
         <TextView
             android:id="@+id/media_text"
@@ -65,12 +65,12 @@
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/text_margin"
+            android:contentDescription="@string/main_picture_property"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/property_settings"
-            android:contentDescription="@string/main_picture_property" />
+            app:layout_constraintTop_toBottomOf="@id/property_settings" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/price_input"
@@ -78,17 +78,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/text_margin"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/picture_property" >
+            app:layout_constraintTop_toBottomOf="@id/picture_property">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/price_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/price"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -97,17 +98,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/text_margin"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/price_input" >
+            app:layout_constraintTop_toBottomOf="@id/price_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/agent_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/agent_in_charge"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -116,29 +118,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/text_margin"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/agent_input" >
+            app:layout_constraintTop_toBottomOf="@id/agent_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/type_of_property_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/type_of_property"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_sold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sold"
-            android:textSize="16sp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/type_of_property_input"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="@string/sold"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/type_of_property_input" />
 
 
         <TextView
@@ -159,17 +162,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/text_margin"
-            android:layout_marginEnd="@dimen/text_margin"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/text_margin"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description_title" >
+            app:layout_constraintTop_toBottomOf="@id/description_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"
-                android:inputType="textMultiLine"/>
+                android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -195,13 +199,14 @@
             android:layout_marginEnd="@dimen/text_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/surface_title"
-            app:layout_constraintTop_toBottomOf="@id/surface_title" >
+            app:layout_constraintTop_toBottomOf="@id/surface_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/surface_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/surface"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -227,13 +232,14 @@
             android:layout_marginEnd="@dimen/text_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/number_rooms_title"
-            app:layout_constraintTop_toBottomOf="@id/number_rooms_title" >
+            app:layout_constraintTop_toBottomOf="@id/number_rooms_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number_rooms_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/number_of_rooms"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -259,15 +265,15 @@
             android:layout_marginEnd="@dimen/text_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/number_bathroom_title"
-            app:layout_constraintTop_toBottomOf="@id/number_bathroom_title" >
+            app:layout_constraintTop_toBottomOf="@id/number_bathroom_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number_bathroom_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/number_of_bathrooms"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
-
 
 
         <TextView
@@ -293,13 +299,14 @@
             android:layout_marginEnd="@dimen/text_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/number_bedroom_title"
-            app:layout_constraintTop_toBottomOf="@id/number_bedroom_title" >
+            app:layout_constraintTop_toBottomOf="@id/number_bedroom_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/number_bedroom_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/number_of_bedrooms"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -308,9 +315,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/icon_margin"
+            android:layout_marginTop="@dimen/text_margin"
             android:drawableStart="@drawable/ic_baseline_location_on_24"
             android:drawablePadding="@dimen/text_margin"
-            android:layout_marginTop="@dimen/text_margin"
             android:text="@string/location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/number_bedroom_input" />
@@ -326,12 +333,13 @@
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_title"
             app:layout_constraintTop_toBottomOf="@id/location_title">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_road_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/road"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -339,12 +347,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
-            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_road_input"
             app:layout_constraintTop_toBottomOf="@id/location_road_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_apartment_edit"
                 android:layout_width="match_parent"
@@ -358,18 +367,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
-            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_apartment_input"
             app:layout_constraintTop_toBottomOf="@id/location_apartment_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_city_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/city"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -377,18 +387,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
-            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_city_input"
             app:layout_constraintTop_toBottomOf="@id/location_city_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_country_code_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/country_code"
-                android:inputType="number"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -396,18 +407,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_margin"
             android:layout_marginTop="@dimen/text_margin"
             android:layout_marginEnd="@dimen/text_margin"
-            android:layout_marginStart="@dimen/content_margin"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@id/location_country_code_input"
             app:layout_constraintTop_toBottomOf="@id/location_country_code_input">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/location_country_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/country"
-                android:inputType="text"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -418,9 +430,9 @@
             android:layout_marginBottom="16dp"
             android:text="@string/confirm"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/location_country_input"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/location_country_input" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
