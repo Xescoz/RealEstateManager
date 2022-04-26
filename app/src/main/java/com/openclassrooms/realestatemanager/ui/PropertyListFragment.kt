@@ -91,16 +91,12 @@ class PropertyListFragment : Fragment() {
             recyclerView: RecyclerView,
             onClickListener: View.OnClickListener
     ) {
-        Log.v("Ping fragment","setupRecyclerView")
-
         adapter = PropertyListRecyclerViewAdapter(
                 onClickListener,
                 requireContext())
         recyclerView.adapter = adapter
 
         propertyViewModel.getAllProperties().observe(viewLifecycleOwner) { propertyList ->
-
-            Log.v("Ping fragment", "observe")
             if (!isUpdate)
                 adapter.listProperty = propertyList
 
@@ -115,10 +111,6 @@ class PropertyListFragment : Fragment() {
     fun updateList(propertyList: ArrayList<Property>){
         isUpdate = true
         adapter.listProperty = propertyList
-        Log.v("Ping Fragment","good")
-        Log.v("List Size Fragment", propertyList.size.toString())
-
-        Log.v("adapter size",adapter.itemCount.toString())
     }
 
     override fun onDestroyView() {

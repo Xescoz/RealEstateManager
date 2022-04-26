@@ -1,7 +1,11 @@
 package com.openclassrooms.realestatemanager.ui
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -25,7 +29,7 @@ class PropertyMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        createNotificationChannel()
 
         binding = ActivityMainPropertylBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -78,24 +82,28 @@ class PropertyMainActivity : AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK) {
             val value = it.data?.getParcelableArrayListExtra<Property>("ActivityResult")
 
-            Log.v("List Size Sortie", value?.size.toString())
-
             val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_item_detail) as NavHostFragment
 
             val fragment: PropertyListFragment = navHostFragment.childFragmentManager.fragments[0] as PropertyListFragment
 
-            Log.v("fragment", fragment.toString())
-
-            value?.forEach {
-                Log.v("value each", it.city)
-            }
-
             if (value != null) {
                 fragment.updateList(value)
-                Log.v("Ping", "good")
             }
         }
     }
+
+    private fun createNotificationChannel() {
+        val name = getString(R.string.notification_channel_name)
+        val descriptionText = getString(R.string.notification_channel_description)
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel("1", name, importance).apply {
+            description = descriptionText
+        }
+        val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_item_detail)

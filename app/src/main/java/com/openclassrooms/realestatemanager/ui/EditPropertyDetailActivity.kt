@@ -3,6 +3,8 @@ package com.openclassrooms.realestatemanager.ui
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Notification
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -15,6 +17,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.material.textfield.TextInputEditText
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.ActivityEditPropertyDetailBinding
@@ -141,9 +145,12 @@ class EditPropertyDetailActivity : AppCompatActivity() {
         propertyUpdated.price = binding.priceEdit.text.toString().toInt()
         propertyUpdated.propertyType = binding.typeOfPropertyEdit.text.toString()
         propertyUpdated.agent = binding.agentEdit.text.toString()
+        property?.numberOfPhotos = property?.photos!!.size
 
-        if (isCreate)
+        if (isCreate) {
             propertyViewModel.insert(propertyUpdated)
+            createNotification()
+        }
         else {
             val intent = Intent()
             intent.putExtra("ActivityResult", propertyUpdated)
@@ -216,7 +223,7 @@ class EditPropertyDetailActivity : AppCompatActivity() {
                     val photo = Photo(image, dialogDescriptionEditText.text.toString())
                     property!!.photos!!.add(photo)
                     adapter.updateList(property!!.photos)
-                    property?.numberOfPhotos = property?.photos!!.size
+
                 }
             }
 
@@ -224,6 +231,21 @@ class EditPropertyDetailActivity : AppCompatActivity() {
             builder.create()
         }
         alertDialog.show()
+
+    }
+
+    private fun createNotification(){
+
+        val builder = NotificationCompat.Builder(this, "1")
+                .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                .setContentTitle("Real Estate Manager")
+                .setContentText("You're new property has been successfully added")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(0, builder.build())
+        }
 
     }
 

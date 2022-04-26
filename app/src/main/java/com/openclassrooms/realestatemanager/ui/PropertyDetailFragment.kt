@@ -78,7 +78,7 @@ class PropertyDetailFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         var propertyLocation = LatLng(48.864716, 2.349014)
-        if (propertyParcel != null) {
+        if (propertyParcel != null && propertyParcel?.address!="") {
             propertyLocation = getLatLngFromAddress(propertyParcel?.address + ", " + propertyParcel?.city)
         }
 

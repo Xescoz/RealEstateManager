@@ -48,4 +48,6 @@
     <string name="loan_simulator">Loan simulator</string>
     <string name="interest_value">Interest : 1.25%</string>
     <string name="loan_string_result">Your monthly payment will be %1$s$ per month</string>
+    <string name="notification_channel_name">Real Estate Manager Channel</string>
+    <string name="notification_channel_description">A Real Estate Manager channel description</string>
 </resources>

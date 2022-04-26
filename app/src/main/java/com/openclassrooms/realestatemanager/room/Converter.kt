@@ -9,12 +9,12 @@ class Converter {
     private var gson = Gson()
 
     @TypeConverter
-    fun foodItemToString(photosItem: List<Photo>): String {
+    fun photoToString(photosItem: List<Photo>): String {
         return gson.toJson(photosItem)
     }
 
     @TypeConverter
-    fun stringToFoodItem(data: String): List<Photo> {
+    fun stringToPhoto(data: String): List<Photo> {
         val listType = object : TypeToken<List<Photo>>() {
         }.type
         return gson.fromJson(data, listType)
