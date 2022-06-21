@@ -28,4 +28,4 @@ An Android app that allows the user to store property for sale. The properties a
 * [Room Library](https://developer.android.com/topic/libraries/architecture/room)
 
 ## API
-* [Google Maps API](https://developers.google.com/maps/documentation/android-sdk)
+* [Google Maps API](https://maps.googleapis.com)
